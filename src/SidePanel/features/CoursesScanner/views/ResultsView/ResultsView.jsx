@@ -90,7 +90,7 @@ function ResultsView({taskId, scanAgainCallback})
             {(data && data.resultsData.length > 0) &&
               <Tooltip.Root>
                 <IconButton animated={false} onClick={handleDownloadClick}
-                            className="text-blue-500 hover:text-blue-400 hover:shadow-sm active:text-blue-400 active:shadow-inner">
+                            className="text-blue-600 hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner">
                   <Tooltip.Trigger asChild>
                     <DownloadIcon className="w-10 h-10 p-1"/>
                   </Tooltip.Trigger>

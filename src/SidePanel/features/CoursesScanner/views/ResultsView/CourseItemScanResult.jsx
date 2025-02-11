@@ -55,7 +55,7 @@ function CourseItemScanResult({id, name, matches, previews, url, published, info
         </Tooltip.Content>
       </Tooltip.Root>
       <Tooltip.Root>
-        <IconButton animated={false} onClick={handleInfoButtonClick} className="text-blue-600 hover:text-blue-500 hover:shadow-sm active:text-blue-400 active:shadow-inner">
+        <IconButton animated={false} onClick={handleInfoButtonClick} className="text-blue-600 hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner">
           <Tooltip.Trigger asChild>
             <InfoCircledIcon className="w-6 h-6 p-1"/>
           </Tooltip.Trigger>
