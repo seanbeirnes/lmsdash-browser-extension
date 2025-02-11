@@ -46,11 +46,11 @@ Some code is shared among all three parts, and these are in the **shared** direc
 ### Local Set Up
 1. Clone the repository.
 ```shell
-git clone https://github.com/seanbeirnes/LmsDash_ChromeExtension.git
+git clone https://github.com/seanbeirnes/lmsdash-browser-extension.git
 ```
 2. Navigate to the root directory.
 ```shell
-cd LmsDash_ChromeExtension/
+cd lmsdash-browser-extension/
 ```
 3. Install the npm packages.
 ```shell
