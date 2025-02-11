@@ -28,7 +28,7 @@ function SelectScanSettings({settings, setSettings, runScanCallback})
   return (
     <PrimaryCard fixedWidth={true}>
       <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-        <h3 className="text-gray-700 text-xl text-center">Scan Settings</h3>
+        <h3 className="text-gray-700 text-xl text-center">Search Settings</h3>
         <div className="flex items-center gap-2">
           <Switch.Root id="case-sensitive"
                        className={switchRootClasses}
@@ -66,7 +66,7 @@ function SelectScanSettings({settings, setSettings, runScanCallback})
       </div>
       <div className="self-end">
         <ButtonPrimary onClick={runScanCallback}>
-          <span>Start Scan</span>
+          <span>Start Search</span>
         </ButtonPrimary>
       </div>
     </PrimaryCard>

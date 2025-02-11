@@ -64,7 +64,7 @@ function SelectScannedItems({scannedItems, setScannedItems, scanType})
     return(
       <PrimaryCard fixedWidth={true}>
         <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-          <h3 className="text-gray-700 text-xl text-center">Scanned Items</h3>
+          <h3 className="text-gray-700 text-xl text-center">Searched Items</h3>
           <p>No course selected.</p>
         </div>
       </PrimaryCard>
