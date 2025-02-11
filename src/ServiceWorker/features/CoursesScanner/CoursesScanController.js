@@ -25,7 +25,7 @@ export default class CoursesScanController
   start()
   {
     this.running = true;
-    this.task.setProgressData(["Starting scan..."]);
+    this.task.setProgressData(["Starting search..."]);
     this.#run();
 
     return true;
@@ -35,7 +35,7 @@ export default class CoursesScanController
   {
     this.running = false;
     this.stopped = true;
-    this.task.setProgressData(["Stopping scan..."]);
+    this.task.setProgressData(["Stopping search..."]);
   }
 
   async #run()
@@ -80,10 +80,10 @@ export default class CoursesScanController
     // Update task with results and stop scan
     this.task.setStatus(this.stopped ? Task.status.failed : Task.status.complete)
     this.task.setTimeFinished();
-    this.task.setProgressData(this.stopped ? ["Scan stopped"] : ["Scan Complete!",`Scanned ${this.totalCourses} course(s)`]);
+    this.task.setProgressData(this.stopped ? ["Search stopped"] : ["Search Complete!",`Searched ${this.totalCourses} course(s)`]);
     this.task.setResultsData(this.courseScanResults);
 
-    Logger.debug(__dirname, "Scan Complete! \n" + this.task.toString());
+    Logger.debug(__dirname, "Search Complete! \n" + this.task.toString());
   }
 
   async collectCourseIds()
@@ -111,7 +111,7 @@ export default class CoursesScanController
 
     this.scanSettings.courseIds = courseIds;
 
-    Logger.debug(__dirname, "Collected course IDs for scanning: \n" + courseIds.toString());
+    Logger.debug(__dirname, "Collected course IDs for searching: \n" + courseIds.toString());
   }
 
   async sendCanvasRequests(requests)
@@ -131,8 +131,8 @@ export default class CoursesScanController
   updateProgressData(courseName)
   {
     this.task.setProgressData([
-      `Scanning course ${this.coursesScanned + 1} of ${this.totalCourses}`,
-      `Scanning items in course ${courseName}`
+      `Searching course ${this.coursesScanned + 1} of ${this.totalCourses}`,
+      `Searching items in course ${courseName}`
     ]);
   }
 
