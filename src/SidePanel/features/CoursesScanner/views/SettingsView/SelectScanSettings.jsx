@@ -22,13 +22,13 @@ function SelectScanSettings({settings, setSettings, runScanCallback})
   }
 
   const switchRootClasses = "relative w-8 h-5 bg-gray-200 data-[state='checked']:bg-blue-500 transition shadow-inner rounded-full";
-  const switchThumbClasses = "block w-4 h-4 bg-white shadow-sm transition-all translate-x-0.5 data-[state='checked']:translate-x-[0.85rem] rounded-full";
+  const switchThumbClasses = "block w-4 h-4 bg-white shadow-xs transition-all translate-x-0.5 data-[state='checked']:translate-x-[0.85rem] rounded-full";
   const switchLabelClasses = "text-base text-gray-700";
 
   return (
     <PrimaryCard fixedWidth={true}>
       <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-        <h3 className="text-gray-700 text-xl text-center">Scan Settings</h3>
+        <h3 className="text-gray-700 text-xl text-center">Search Settings</h3>
         <div className="flex items-center gap-2">
           <Switch.Root id="case-sensitive"
                        className={switchRootClasses}
@@ -66,7 +66,7 @@ function SelectScanSettings({settings, setSettings, runScanCallback})
       </div>
       <div className="self-end">
         <ButtonPrimary onClick={runScanCallback}>
-          <span>Start Scan</span>
+          <span>Start Search</span>
         </ButtonPrimary>
       </div>
     </PrimaryCard>

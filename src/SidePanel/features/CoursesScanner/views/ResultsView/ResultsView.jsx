@@ -90,12 +90,12 @@ function ResultsView({taskId, scanAgainCallback})
             {(data && data.resultsData.length > 0) &&
               <Tooltip.Root>
                 <IconButton animated={false} onClick={handleDownloadClick}
-                            className="text-blue-500 hover:text-blue-400 hover:shadow active:text-blue-400 active:shadow-inner">
+                            className="text-blue-600 hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner">
                   <Tooltip.Trigger asChild>
                     <DownloadIcon className="w-10 h-10 p-1"/>
                   </Tooltip.Trigger>
                 </IconButton>
-                <Tooltip.Content className="select-none p-2 bg-white rounded shadow-xl animate__animated animate__fadeIn"
+                <Tooltip.Content className="select-none p-2 bg-white rounded-sm shadow-xl animate__animated animate__fadeIn"
                                  sideOffset={0}
                                  side={"bottom"}>
                   Download results as CSV file
@@ -141,7 +141,7 @@ function ResultsView({taskId, scanAgainCallback})
   <Dialog.Root open={curDetails !== null} modal={true}>
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 w-dvw h-dvh bg-gray-700 opacity-50" />
-      <Dialog.Content onInteractOutside={() => setCurDetails(null)} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-dvw max-w-[85dvw] sm:max-w-lg max-h-[85dvh] min-h-32 p-8 text-2xl bg-white shadow-lg rounded">
+      <Dialog.Content onInteractOutside={() => setCurDetails(null)} className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-dvw max-w-[85dvw] sm:max-w-lg max-h-[85dvh] min-h-32 p-8 text-2xl bg-white shadow-lg rounded-sm">
         <Dialog.Title className="text-gray-700 font-bold mb-2 text-center">
           Scan Result Details
         </Dialog.Title>
@@ -159,7 +159,7 @@ function ResultsView({taskId, scanAgainCallback})
               {
                 curDetails.previews.map((preview, index) => {
                   return <div className="w-full break-all" key={"preview-" + index}>
-                    <p  className="text-sm font-mono">{preview[0] ? preview[0] : ""}<span className="py-1 rounded bg-blue-200 font-bold">{preview[1]}</span>{preview[2] ? preview[2] : ""}</p>
+                    <p  className="text-sm font-mono">{preview[0] ? preview[0] : ""}<span className="py-1 rounded-sm bg-blue-200 font-bold">{preview[1]}</span>{preview[2] ? preview[2] : ""}</p>
                     <hr className="border-gray-400 my-2"/>
                   </div>
                 })

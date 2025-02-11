@@ -25,7 +25,7 @@ function CourseScanResult({id, name, courseCode, sisCourseId, published, url, it
                className="text-blue-600 hover:text-blue-500 hover:underline active:text-blue-400">{name}</a>
           </h3>
           <Collapsible.Trigger
-            className="text-blue-600 hover:text-blue-500 hover:bg-white hover:shadow-sm active:text-blue-400 active:shadow-inner">
+            className="text-blue-600 rounded-sm hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner">
             {open ?
               <CaretUnsortIcon className="w-9 h-9"/>
               :

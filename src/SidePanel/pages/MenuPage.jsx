@@ -50,7 +50,7 @@ function MenuPage()
             </div>
             <MenuButton onClick={() => pageRouterState.setPage(Pages.page.COURSES_SCANNER)}>
               <MagnifyingGlassIcon/>
-              Scan Courses
+              Search Courses
             </MenuButton>
             {/*Admin only buttons go below this line*/}
             {/*{appState.isAdmin && <MenuButton onClick={() => pageRouterState.setPage(Pages.page.EXTERNAL_TOOLS)}>*/}
