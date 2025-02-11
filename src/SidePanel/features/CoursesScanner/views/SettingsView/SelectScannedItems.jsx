@@ -76,7 +76,7 @@ function SelectScannedItems({scannedItems, setScannedItems, scanType})
     return(
       <PrimaryCard fixedWidth={true}>
         <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-          <h3 className="text-gray-700 text-xl text-center">Scanned Items</h3>
+          <h3 className="text-gray-700 text-xl text-center">Searched Items</h3>
           <div className="w-full flex justify-center">
             <ProgressSpinner/>
           </div>
@@ -90,7 +90,7 @@ function SelectScannedItems({scannedItems, setScannedItems, scanType})
     return(
       <PrimaryCard fixedWidth={true}>
         <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-          <h3 className="text-gray-700 text-xl text-center">Scanned Items</h3>
+          <h3 className="text-gray-700 text-xl text-center">Searched Items</h3>
           <p>An error occurred fetching course permissions...</p>
         </div>
       </PrimaryCard>
@@ -100,7 +100,7 @@ function SelectScannedItems({scannedItems, setScannedItems, scanType})
   return (
     <PrimaryCard fixedWidth={true}>
       <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-        <h3 className="text-gray-700 text-xl text-center">Scanned Items</h3>
+        <h3 className="text-gray-700 text-xl text-center">Searched Items</h3>
 
         { (data?.hasAnnouncements || !isSingleCourseScan) && (<div className="flex items-center gap-2">
           <Switch.Root id={CourseItem.Type.ANNOUNCEMENT}
