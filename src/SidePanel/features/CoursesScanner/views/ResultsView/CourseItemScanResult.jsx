@@ -27,7 +27,7 @@ function CourseItemScanResult({id, name, matches, previews, url, published, info
               <EyeNoneIcon className="w-6 h-6 p-1 text-red-600"/>
           }
         </Tooltip.Trigger>
-        <Tooltip.Content className="select-none p-2 bg-white rounded shadow-xl animate__animated animate__fadeIn"
+        <Tooltip.Content className="select-none p-2 bg-white rounded-sm shadow-xl animate__animated animate__fadeIn"
                          sideOffset={0}
                          side={"bottom"}>
           {published ? "Published" : "Unpublished"}
@@ -41,7 +41,7 @@ function CourseItemScanResult({id, name, matches, previews, url, published, info
             {name}
           </a>
         </Tooltip.Trigger>
-        <Tooltip.Content className="select-none p-2 bg-white rounded shadow-xl animate__animated animate__fadeIn"
+        <Tooltip.Content className="select-none p-2 bg-white rounded-sm shadow-xl animate__animated animate__fadeIn"
                          sideOffset={0}
                          side={"bottom"}>
           <div className="flex flex-col justify-start gap-2">
@@ -55,12 +55,12 @@ function CourseItemScanResult({id, name, matches, previews, url, published, info
         </Tooltip.Content>
       </Tooltip.Root>
       <Tooltip.Root>
-        <IconButton animated={false} onClick={handleInfoButtonClick} className="text-blue-600 hover:text-blue-500 hover:shadow active:text-blue-400 active:shadow-inner">
+        <IconButton animated={false} onClick={handleInfoButtonClick} className="text-blue-600 hover:text-blue-500 hover:shadow-sm active:text-blue-400 active:shadow-inner">
           <Tooltip.Trigger asChild>
             <InfoCircledIcon className="w-6 h-6 p-1"/>
           </Tooltip.Trigger>
         </IconButton>
-        <Tooltip.Content className="select-none p-2 bg-white rounded shadow-xl animate__animated animate__fadeIn"
+        <Tooltip.Content className="select-none p-2 bg-white rounded-sm shadow-xl animate__animated animate__fadeIn"
                          sideOffset={0}
                          side={"bottom"}>
           View details and preview matches found

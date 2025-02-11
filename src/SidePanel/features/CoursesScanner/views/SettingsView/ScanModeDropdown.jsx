@@ -5,7 +5,7 @@ import {forwardRef} from "react";
 function ScanModeDropdown({value, onChange}) {
  return (
    <Select.Root value={value} onValueChange={(value) => onChange(value)}>
-     <Select.Trigger className={"inline-flex items-center justify-between rounded px-4 text-base leading-none h-9 gap-1 bg-white text-blue-600 hover:text-blue-500 active:text-blue-400 data-[placeholder]:text-gray-200 outline-none border-2 border-gray-200 shadow-inner"}>
+     <Select.Trigger className={"inline-flex items-center justify-between rounded-sm px-4 text-base leading-none h-9 gap-1 bg-white text-blue-600 hover:text-blue-500 active:text-blue-400 data-placeholder:text-gray-200 outline-hidden border-2 border-gray-200 shadow-inner"}>
        <Select.Value/>
        <Select.Icon>
          <ChevronDownIcon className="w-6 h-6"/>
@@ -13,7 +13,7 @@ function ScanModeDropdown({value, onChange}) {
      </Select.Trigger>
 
      <Select.Portal>
-       <Select.Content className={"w-[--radix-select-trigger-width] overflow-hidden bg-white rounded shadow-md"} position={"popper"}>
+       <Select.Content className={"w-(--radix-select-trigger-width) overflow-hidden bg-white rounded-sm shadow-md"} position={"popper"}>
          <Select.ScrollUpButton className={"flex items-center justify-center h-6 bg-white text-blue-600 cursor-default"}>
          <ChevronUpIcon />
          </Select.ScrollUpButton>
@@ -36,7 +36,7 @@ const SelectItem = forwardRef(({ children, className, ...props }, forwardedRef) 
   return (
     <Select.Item
       className={
-        "text-base leading-none text-blue-600 rounded flex items-center h-9 pr-9 pl-9 relative select-none data-[disabled]:text-gray-200 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-blue-500 data-[highlighted]:text-white"
+        "text-base leading-none text-blue-600 rounded-sm flex items-center h-9 pr-9 pl-9 relative select-none data-disabled:text-gray-200 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-blue-500 data-highlighted:text-white"
       }
       {...props}
       ref={forwardedRef}
