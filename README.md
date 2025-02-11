@@ -2,6 +2,8 @@
 
 **Note:** LMS Dash is currently in beta. Unexpected errors may occasionally happen.
 
+[LMS Dash is available on the Chrome Web Store](https://chromewebstore.google.com/detail/lms-dash/dphccimingcbmlkehpflgkningeomenp)
+
 LMS Dash is your Canvas assistant that is always ready in your browser. This browser extension helps instructors,
 instructional designers, and administrators spend less time on managing Canvas and more time on delivering great
 courses. LMS Dash simplifies course and LMS management tasks by offering features that are not natively available in
