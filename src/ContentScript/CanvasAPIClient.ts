@@ -1,4 +1,4 @@
-import { HTTPClient } from "./HTTPClient.js";
+import { HTTPClient } from "./HTTPClient";
 
 export class CanvasAPIClient {
   public Get: typeof GetRequests;
