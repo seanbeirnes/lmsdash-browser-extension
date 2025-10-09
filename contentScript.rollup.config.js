@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import terser from "@rollup/plugin-terser";
 import replace from "@rollup/plugin-replace";
+import typescript from "@rollup/plugin-typescript";
 
 const manifest = JSON.parse(fs.readFileSync("manifest.json"));
 
@@ -19,5 +20,8 @@ export default {
 			__app_description: () => `'${manifest.description}'`,
 			preventAssignment: true
 		}),
+        typescript({
+          tsconfig: './tsconfig.json'
+        }),
 			isProduction && terser()]
 };
