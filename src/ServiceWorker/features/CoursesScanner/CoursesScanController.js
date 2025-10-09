@@ -4,7 +4,6 @@ import {CanvasRequest} from "../../../shared/models/CanvasRequest.js";
 import Logger from "../../../shared/utils/Logger.js";
 import CourseScannerController from "./CourseScannerController.js";
 import Task from "../../../shared/models/Task.js";
-import Security from "../../../shared/utils/Security.js";
 
 export default class CoursesScanController
 {

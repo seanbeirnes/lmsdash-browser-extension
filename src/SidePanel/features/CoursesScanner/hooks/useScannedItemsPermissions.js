@@ -1,7 +1,6 @@
 import {CanvasRequest} from "../../../../shared/models/CanvasRequest.js";
 import {useQuery} from "@tanstack/react-query";
 import {Message} from "../../../../shared/models/Message.js";
-import Security from "../../../../shared/utils/Security.js";
 
 export default function useScannedItemsPermissions(courseId)
 {
@@ -25,10 +24,7 @@ export default function useScannedItemsPermissions(courseId)
         Message.Type.Canvas.REQUESTS,
         "Permissions request",
         canvasRequests)
-    await msgRequest.setSignature();
     const msgResponse = await chrome.runtime.sendMessage(msgRequest);
-
-    Security.compare.messages(msgRequest, msgResponse);
 
     if(!msgResponse.data) throw new Error("Message data is null")
 

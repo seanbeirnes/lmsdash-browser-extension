@@ -6,7 +6,6 @@ import PageRouter from "./router/PageRouter.jsx";
 import AppStateModalController from "./controllers/AppStateModalController.jsx";
 import getActiveTabCourseId from "./hooks/getActiveTabCourseId.js";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import Security from "../shared/utils/Security.js";
 import * as Toast from "@radix-ui/react-toast";
 
 const queryClient = new QueryClient({});
@@ -64,9 +63,7 @@ function App()
           Message.Sender.SIDE_PANEL,
           Message.Type.Task.Request.App.SET_PANEL_OPENED,
           "SidePanel was opened")
-      await request.setSignature();
       const response = await chrome.runtime.sendMessage(request);
-      Security.compare.messages(request, response);
       handleMessage(response);
     }
 
@@ -79,10 +76,8 @@ function App()
         Message.Sender.SIDE_PANEL,
         Message.Type.Task.Request.Info.USER,
         "User info request");
-      await request.setSignature();
 
       const response = await chrome.runtime.sendMessage(request);
-      Security.compare.messages(request, response);
 
       if(response.data === null) return;
 

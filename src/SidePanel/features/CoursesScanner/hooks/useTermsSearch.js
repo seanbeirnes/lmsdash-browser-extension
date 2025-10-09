@@ -1,7 +1,6 @@
 import {Message} from "../../../../shared/models/Message.js";
 import {CanvasRequest} from "../../../../shared/models/CanvasRequest.js";
 import {useQuery} from "@tanstack/react-query";
-import Security from "../../../../shared/utils/Security.js";
 
 export default function useTermsSearch(searchTerm)
 {
@@ -14,10 +13,8 @@ export default function useTermsSearch(searchTerm)
         Message.Type.Canvas.REQUESTS,
         "Course request",
         [new CanvasRequest(CanvasRequest.Get.TermsBySearch, {searchTerm: searchTerm})])
-    await msgRequest.setSignature();
 
     const msgResponse = await chrome.runtime.sendMessage(msgRequest);
-    Security.compare.messages(msgRequest, msgResponse);
 
     if(msgResponse.data.length === 0) throw Error("Terms Not Found");
     if(msgResponse.data[0].status >= 400) throw Error("Error fetching terms");

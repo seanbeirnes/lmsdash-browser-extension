@@ -3,7 +3,6 @@ import {useQuery} from "@tanstack/react-query";
 import {CanvasRequest} from "../../../../../shared/models/CanvasRequest.js";
 import ProgressSpinner from "../../../../components/shared/progress/ProgressSpinner.jsx";
 import {useEffect} from "react";
-import Security from "../../../../../shared/utils/Security.js";
 
 function SelectCourse({courseId, setCourseIds})
 {
@@ -15,10 +14,7 @@ function SelectCourse({courseId, setCourseIds})
         Message.Type.Canvas.REQUESTS,
         "Course request",
         [new CanvasRequest(CanvasRequest.Get.Course, {courseId: courseId})])
-    await msgRequest.setSignature();
     const msgResponse = await chrome.runtime.sendMessage(msgRequest);
-
-    Security.compare.canvasRequestMessages(msgRequest, msgResponse);
 
     if(msgResponse.data.length === 0) throw Error("Course Not Found");
     if(msgResponse.data[0].status >= 400) throw Error("Error fetching course info");

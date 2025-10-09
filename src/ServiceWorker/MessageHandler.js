@@ -2,7 +2,6 @@ import {Message} from "../shared/models/Message.js";
 import {CanvasRequest} from "../shared/models/CanvasRequest.js";
 import {Utils} from "../shared/utils/Utils.js";
 import Task from "../shared/models/Task.js";
-import Security from "../shared/utils/Security.js";
 
 export class MessageHandler
 {
@@ -36,8 +35,6 @@ export class MessageHandler
 
   async handleSidePanelMessage(message, sender, sendResponse)
   {
-    if(!message.signature) throw new Error("No message signature! Cannot process message");
-
     switch(message.type)
     {
       case Message.Type.Canvas.REQUESTS:
@@ -52,7 +49,7 @@ export class MessageHandler
           response
         )
 
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg);
       }
         break;
@@ -73,7 +70,7 @@ export class MessageHandler
             "SidePanel was opened",
             this.appController.state
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg)
       }
         break;
@@ -91,7 +88,7 @@ export class MessageHandler
             "User info response",
             response
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg)
       }
         break;
@@ -108,7 +105,7 @@ export class MessageHandler
             task ? "Task found" : "No task by received id",
             task ? task : null
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg)
       }
 
@@ -125,7 +122,7 @@ export class MessageHandler
             task ? "Task found" : "No task by received id",
             task ? task : null
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg);
       }
         break;
@@ -142,7 +139,7 @@ export class MessageHandler
             tasks ? "Tasks found" : "No tasks by received task type",
             tasks ? tasks : null
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg);
       }
         break;
@@ -159,7 +156,7 @@ export class MessageHandler
               task ? "New task created" : "Task creation failed",
               task ? task : null
             )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg);
       }
         break;
@@ -176,7 +173,7 @@ export class MessageHandler
             success ? "Task stopped" : "Task could not be stopped",
             success
           )
-        responseMsg.signature = message.signature;
+        
         sendResponse(responseMsg);
       }
         break;
@@ -201,7 +198,6 @@ export class MessageHandler
         text,
         data
       )
-    await newMessage.setSignature();
 
     chrome.runtime.sendMessage(newMessage).catch( e =>
     {
@@ -225,7 +221,6 @@ export class MessageHandler
       Message.Type.Canvas.REQUESTS,
       "Canvas requests",
       requests)
-    await requestMsg.setSignature();
 
     const responseMsg = await this.#trySendingRequests(requestMsg)
 
@@ -252,10 +247,7 @@ export class MessageHandler
       }
     })
 
-    // Null check to prevent errors in security check
     if(!response) return null;
-
-    Security.compare.canvasRequestMessages(message, response);
     return response;
   }
 
