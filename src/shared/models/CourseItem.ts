@@ -1,4 +1,4 @@
-export const CourseItemType = {
+export const CourseItemTypes = {
   ANNOUNCEMENT: "announcement",
   ASSIGNMENT: "assignment",
   COURSE_NAV_LINK: "course-nav-link",
@@ -11,4 +11,4 @@ export const CourseItemType = {
   SYLLABUS: "syllabus",
 } as const
 
-export type CourseItemType = typeof CourseItemType[keyof typeof CourseItemType]
+export type CourseItemType = typeof CourseItemTypes[keyof typeof CourseItemTypes]
