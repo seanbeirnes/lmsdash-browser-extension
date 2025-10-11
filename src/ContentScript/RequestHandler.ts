@@ -38,19 +38,19 @@ export class RequestHandler {
   }
 
   // Returns a dictionary key/value pair of the link header if it is not null
-  private parseLinkHeader(linkHeader: string | null): string[] | null {
+  private parseLinkHeader(linkHeader: string | null): Record<string, string> | null {
     if (linkHeader == null) {
       return null;
     }
 
-    const links: string[] = [];
+    const links: Record<string,string> = {};
     const list = linkHeader.split(",");
 
     list.forEach((link) => {
       const LINK_PATTERN = /^<([\\w\\/\\.&%?:\\-\\[\\]=]+)>;\\srel="(\\w+)"$/;
       const matches = link.match(LINK_PATTERN);
       if (matches && matches.length === 3) {
-        links[Number(matches[2])] = matches[1];
+        links[matches[2]] = matches[1];
       }
     });
 

@@ -3,7 +3,7 @@ export class CanvasResponse {
   id: string | number;
   text: string;
   bodyUsed: boolean;
-  link: string[] | null;
+  link: Record<string, string> | null;
   ok: boolean;
   redirected: boolean;
   status: number;
@@ -14,7 +14,7 @@ export class CanvasResponse {
     id: string | number,
     text: string,
     bodyUsed: boolean,
-    link: string[] | null,
+    link: Record<string, string> | null,
     ok: boolean,
     redirected: boolean,
     status: number,

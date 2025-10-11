@@ -1,16 +1,16 @@
-import { CourseItemType } from "../../../shared/models/CourseItem"
+import { CourseItemTypes } from "../../../shared/models/CourseItem"
 
 export const ScannableTypes = {
-  ANNOUNCEMENT: CourseItemType.ANNOUNCEMENT,
-  ASSIGNMENT: CourseItemType.ASSIGNMENT,
-  COURSE_NAV_LINK: CourseItemType.COURSE_NAV_LINK,
-  DISCUSSION: CourseItemType.DISCUSSION,
-  FILE: CourseItemType.FILE,
-  MODULE: CourseItemType.MODULE,
-  MODULE_ITEM: CourseItemType.MODULE_ITEM,
-  MODULE_LINK: CourseItemType.MODULE_LINK,
-  PAGE: CourseItemType.PAGE,
-  SYLLABUS: CourseItemType.SYLLABUS,
+  ANNOUNCEMENT: CourseItemTypes.ANNOUNCEMENT,
+  ASSIGNMENT: CourseItemTypes.ASSIGNMENT,
+  COURSE_NAV_LINK: CourseItemTypes.COURSE_NAV_LINK,
+  DISCUSSION: CourseItemTypes.DISCUSSION,
+  FILE: CourseItemTypes.FILE,
+  MODULE: CourseItemTypes.MODULE,
+  MODULE_ITEM: CourseItemTypes.MODULE_ITEM,
+  MODULE_LINK: CourseItemTypes.MODULE_LINK,
+  PAGE: CourseItemTypes.PAGE,
+  SYLLABUS: CourseItemTypes.SYLLABUS,
 } as const
 
 // Use CourseItemType for the shared item types and extend for scanner-specific types
