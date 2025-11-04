@@ -1,10 +1,10 @@
-import {AppController} from "./AppController.js";
+import {AppController} from "./AppController";
 
 // Sets the panel to open when clicking the extension's icon in Chrome
 chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: true})
 
 // Global vars
-let counter = 0;
+let counter: number = 0;
 const appController = new AppController();
 
 // Run the program loop

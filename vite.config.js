@@ -22,7 +22,7 @@ export default defineConfig({
         {
           input: {
             SidePanel: resolve(srcDir, 'SidePanel', 'index.html'),
-            ServiceWorker: resolve(srcDir, 'ServiceWorker', 'main.js')
+            ServiceWorker: resolve(srcDir, 'ServiceWorker', 'main.ts')
           },
           output: {
             entryFileNames: 'src/[name]/index.js',
