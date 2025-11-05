@@ -1,8 +1,19 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
-import ButtonPrimary from "../shared/buttons/ButtonPrimary.jsx";
-import ButtonSecondary from "../shared/buttons/ButtonSecondary.jsx";
+import ButtonPrimary from "../shared/buttons/ButtonPrimary";
+import ButtonSecondary from "../shared/buttons/ButtonSecondary";
+import { MouseEventHandler, ReactNode } from 'react';
 
-function AlertModal({
+interface AlertModalProps {
+  children: ReactNode
+  title: string
+  actionText: string
+  actionCallback: MouseEventHandler
+  cancelText: string
+  open: boolean
+  defaultOpen: boolean
+}
+
+export default function AlertModal({
                       children,
                       title,
                       actionText = "OK",
@@ -10,7 +21,7 @@ function AlertModal({
                       cancelText = "",
                       open = false,
                       defaultOpen = false
-                    })
+                    }: AlertModalProps)
 {
   return (
     <AlertDialog.Root open={open} defaultOpen={defaultOpen}>
@@ -44,5 +55,3 @@ function AlertModal({
     </AlertDialog.Root>
   );
 }
-
-export default AlertModal;
