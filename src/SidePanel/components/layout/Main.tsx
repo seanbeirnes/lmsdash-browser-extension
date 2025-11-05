@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 interface MainProps {
-  animated: boolean
-  children: ReactNode
+  animated?: boolean
+  children?: ReactNode
 }
 
 export default function Main({ animated = true, children }: MainProps) {

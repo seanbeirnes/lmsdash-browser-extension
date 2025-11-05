@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
 
 interface HeaderProps {
-  animated: boolean
-  children: ReactNode
+  animated?: boolean
+  children?: ReactNode
 }
 
 export default function Header({ animated = false, children }: HeaderProps) {
