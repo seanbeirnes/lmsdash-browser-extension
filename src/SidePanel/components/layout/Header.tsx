@@ -1,4 +1,11 @@
-function Header({animated = false, children}) {
+import { ReactNode } from "react"
+
+interface HeaderProps {
+  animated: boolean
+  children: ReactNode
+}
+
+export default function Header({ animated = false, children }: HeaderProps) {
   return (
     <div className="fixed top-0 grid grid-cols-6 pl-4 pr-6 py-2 bg-white shadow-sm w-screen h-16">
       <div className="w-full flex justify-start items-center">{children}</div>
@@ -9,4 +16,3 @@ function Header({animated = false, children}) {
     </div>
   )
 }
-export default Header

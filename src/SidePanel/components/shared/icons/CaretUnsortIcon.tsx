@@ -1,5 +1,8 @@
-function CaretUnsortIcon({className})
-{
+interface CaretUnsortIconProps {
+  className: string
+}
+
+export default function CaretUnsortIcon({ className }: CaretUnsortIconProps) {
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <path
@@ -8,5 +11,3 @@ function CaretUnsortIcon({className})
     </svg>
   )
 }
-
-export default CaretUnsortIcon;

@@ -1,5 +1,8 @@
-function ClipboardTextIcon({className})
-{
+interface ClipboardTextIconProps {
+  className: string
+}
+
+export default function ClipboardTextIcon({ className }: ClipboardTextIconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" className={className}>
       <path
@@ -8,5 +11,3 @@ function ClipboardTextIcon({className})
     </svg>
   )
 }
-
-export default ClipboardTextIcon;
