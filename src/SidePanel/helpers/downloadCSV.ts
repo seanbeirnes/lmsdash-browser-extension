@@ -1,4 +1,4 @@
-export default async function downloadCSV(rows) {
+export default async function downloadCSV(rows: BlobPart): Promise<void> {
     return new Promise((resolve, reject) => {
         try {
             // Create a Blob with the CSV data and type
