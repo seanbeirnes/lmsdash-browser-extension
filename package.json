@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "type": "module",
   "scripts": {
-    "build_contentScript": "rollup --config contentScript.rollup.config.js",
+    "build_contentScript": "rollup --config contentScript.rollup.config.ts",
     "build_manifest": "cp manifest.json dist",
     "build_vite": "vite build",
     "build_app": "npm run build_vite && npm run build_contentScript && npm run build_manifest",
