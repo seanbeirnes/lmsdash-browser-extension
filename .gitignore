@@ -1,3 +1,6 @@
+# Nix
+.direnv/*
+
 # Secrets
 secret/*
 secrets/*
