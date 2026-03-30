@@ -12,7 +12,7 @@ type SearchOption = {
 };
 
 interface SelectTermProps {
-  setScanType: (scanType: Array<string | number>) => void;
+  setScanType: (scanType: string[]) => void;
 }
 
 const LoadingIndicator = () => {
@@ -51,7 +51,7 @@ function SelectTerm({ setScanType }: SelectTermProps) {
     setSelectedTerm(nextSelectedTerm);
 
     if (nextSelectedTerm) {
-      setScanType(["term", nextSelectedTerm.value]);
+      setScanType(["term", String(nextSelectedTerm.value)]);
     }
   }
 
