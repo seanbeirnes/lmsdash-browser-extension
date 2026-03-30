@@ -1,5 +1,5 @@
 import { CanvasAPIClient } from "./CanvasAPIClient";
-import { CanvasRequest, CanvasRequestGet } from "../shared/models/CanvasRequest";
+import { CanvasRequest, CanvasRequestType } from "../shared/models/CanvasRequest";
 import { CanvasResponse } from "../shared/models/CanvasResponse";
 
 export interface CanvasRequestParams {
@@ -12,11 +12,13 @@ export interface CanvasRequestParams {
   moduleId?: number | string;
   includeBody?: boolean;
   searchTerm?: string;
+  announcementId?: number | string;
+  delayedPostAt?: string;
 }
 
 export interface CanvasRequestLike {
   id: string;
-  type: CanvasRequestGet;
+  type: CanvasRequestType;
   params: CanvasRequestParams;
 }
 
@@ -154,8 +156,16 @@ export class RequestHandler {
         response = await this.client.Get.UsersSelf();
         break;
 
+      case CanvasRequest.Put.Announcement:
+        response = await this.client.Put.Announcement(
+          request.params.courseId!,
+          request.params.announcementId!,
+          request.params.delayedPostAt!
+        );
+        break;
+
       default:
-        console.error("Error: invalid canvas get request type passed to RequestHandler");
+        console.error("Error: invalid canvas request type passed to RequestHandler");
     }
 
     if (!response) {

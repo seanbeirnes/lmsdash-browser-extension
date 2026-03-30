@@ -2,9 +2,11 @@ import { HTTPClient } from "./HTTPClient";
 
 export class CanvasAPIClient {
   public Get: typeof GetRequests;
+  public Put: typeof PutRequests;
 
   constructor() {
     this.Get = GetRequests;
+    this.Put = PutRequests;
   }
 
   static formatURL(url: string): string {
@@ -101,6 +103,15 @@ class GetRequests {
   static async UsersSelf(): Promise<Response> {
     return await HTTPClient.get(
       CanvasAPIClient.formatURL("/users/self")
+    );
+  }
+}
+
+class PutRequests {
+  static async Announcement(courseId: number | string, announcementId: number | string, delayedPostAt: string): Promise<Response> {
+    return await HTTPClient.put(
+      CanvasAPIClient.formatURL(`/courses/${courseId}/discussion_topics/${announcementId}`),
+      { delayed_post_at: delayedPostAt }
     );
   }
 }
