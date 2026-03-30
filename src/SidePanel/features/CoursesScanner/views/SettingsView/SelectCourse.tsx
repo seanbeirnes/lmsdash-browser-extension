@@ -54,7 +54,7 @@ function SelectCourse({ courseId, setCourseIds }: SelectCourseProps) {
     } else {
       setCourseIds([]);
     }
-  }, [course, setCourseIds]);
+  }, [data, setCourseIds]);
 
   if (!courseId) {
     return (
