@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import PrimaryCardLayout from "../../../components/shared/cards/PrimaryCardLayout";
-import SettingsView from "../views/SettingsView/SettingsView.jsx";
+import SettingsView from "../views/SettingsView/SettingsView";
 import Logger from "../../../../shared/utils/Logger";
-import ProgressView from "../views/ProgressView/ProgressView.jsx";
+import ProgressView from "../views/ProgressView/ProgressView";
 import { Message, MESSAGE_SENDER, MESSAGE_TARGET, MESSAGE_TYPE } from "../../../../shared/models/Message";
 import Task, { TaskStatuses, TaskTypes } from "../../../../shared/models/Task";
 import { CoursesScanSettings, ScanType } from "../../../../shared/models/CoursesScanSettings";
@@ -12,7 +12,7 @@ import ProgressSpinner from "../../../components/shared/progress/ProgressSpinner
 import useTasksByType from "../../../hooks/useTasksByType";
 import MenuButton from "../../../components/shared/buttons/MenuButton";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import ResultsView from "../views/ResultsView/ResultsView.jsx";
+import ResultsView from "../views/ResultsView/ResultsView";
 
 type UserInfo = {
   lmsInstance: string;
