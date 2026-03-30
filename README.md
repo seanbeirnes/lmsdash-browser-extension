@@ -9,7 +9,7 @@ instructional designers, and administrators spend less time on managing Canvas a
 courses. LMS Dash simplifies course and LMS management tasks by offering features that are not natively available in
 Canvas. Here are some of the things LMS Dash can do:
 - Scan Courses
-- (More features coming soon)
+- 🚧 Adjust Announcement Dates (in bulk)
 
 ## Course Scanner
 One of the most important features of LMS Dash is the course scanner. Do your courses have old addresses, old links,
