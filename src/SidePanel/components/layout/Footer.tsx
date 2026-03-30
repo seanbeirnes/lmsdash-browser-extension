@@ -1,4 +1,4 @@
-import { UserInfoContext, AppStateContext } from "../../App.jsx";
+import { UserInfoContext, AppStateContext } from "../../App";
 import { useContext } from "react";
 
 type AppState = {

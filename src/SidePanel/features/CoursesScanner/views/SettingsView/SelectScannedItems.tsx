@@ -2,7 +2,7 @@ import PrimaryCard from "../../../../components/shared/cards/PrimaryCard";
 import * as Switch from "@radix-ui/react-switch";
 import useScannedItemsPermissions from "../../hooks/useScannedItemsPermissions";
 import { useContext, useEffect, useMemo } from "react";
-import { AppStateContext } from "../../../../App.jsx";
+import { AppStateContext } from "../../../../App";
 import ProgressSpinner from "../../../../components/shared/progress/ProgressSpinner";
 import { CourseItemTypes } from "../../../../../shared/models/CourseItem";
 

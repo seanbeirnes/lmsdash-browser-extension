@@ -7,7 +7,7 @@ import { Message, MESSAGE_SENDER, MESSAGE_TARGET, MESSAGE_TYPE } from "../../../
 import Task, { TaskStatuses, TaskTypes } from "../../../../shared/models/Task";
 import { CoursesScanSettings, ScanType } from "../../../../shared/models/CoursesScanSettings";
 import { useMutation } from "@tanstack/react-query";
-import { UserInfoContext } from "../../../App.jsx";
+import { UserInfoContext } from "../../../App";
 import ProgressSpinner from "../../../components/shared/progress/ProgressSpinner";
 import useTasksByType from "../../../hooks/useTasksByType";
 import MenuButton from "../../../components/shared/buttons/MenuButton";

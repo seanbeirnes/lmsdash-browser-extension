@@ -1,7 +1,7 @@
 import PrimaryCard from "../../../../components/shared/cards/PrimaryCard";
 import ScanModeDropdown from "./ScanModeDropdown";
 import { useContext } from "react";
-import { AppStateContext } from "../../../../App.jsx";
+import { AppStateContext } from "../../../../App";
 import SelectCourse from "./SelectCourse";
 import SelectTerm from "./SelectTerm";
 

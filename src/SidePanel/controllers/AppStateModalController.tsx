@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from "react";
-import { AppStateContext } from "../App.jsx";
+import { AppStateContext } from "../App";
 import MessageModal from "../components/modals/MessageModal";
 
 type AppState = {

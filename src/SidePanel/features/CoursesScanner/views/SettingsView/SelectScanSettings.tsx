@@ -1,7 +1,7 @@
 import * as Switch from "@radix-ui/react-switch";
 import PrimaryCard from "../../../../components/shared/cards/PrimaryCard";
 import ButtonPrimary from "../../../../components/shared/buttons/ButtonPrimary";
-import { AppStateContext } from "../../../../App.jsx";
+import { AppStateContext } from "../../../../App";
 import { useContext } from "react";
 
 type AppState = {
