@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production npm run build_app",
     "dev": "NODE_ENV=development npm run build_app",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "npx tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.6",
