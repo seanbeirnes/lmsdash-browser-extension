@@ -54,11 +54,34 @@ git clone https://github.com/seanbeirnes/lmsdash-browser-extension.git
 ```shell
 cd lmsdash-browser-extension/
 ```
+
+#### Option A: npm directly
 3. Install the npm packages.
 ```shell
 npm install
 ```
-4. Build!
+
+#### Option B: Nix flake dev shell
+3. Enter the development shell.
+```shell
+nix develop
+```
+4. Install the npm packages.
+```shell
+npm install
+```
+
+#### Option C: direnv + Nix flake
+3. Allow the repo's `.envrc` file (first time only).
+```shell
+direnv allow
+```
+4. Install the npm packages.
+```shell
+npm install
+```
+
+5. Build!
 
 **Option 1:** Build the dev version (Runs slower due to extra logging)
 ```shell
