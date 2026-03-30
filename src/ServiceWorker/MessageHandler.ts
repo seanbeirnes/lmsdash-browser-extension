@@ -16,7 +16,7 @@ interface TaskControllerLike {
   getTasksByType(type: string, includeResults: boolean): Task[] | null;
 }
 
-interface AppControllerLike {
+export interface AppControllerLike {
   state: AppState;
   setSidePanelOpen(): void;
   tabHandler: TabHandlerLike;
