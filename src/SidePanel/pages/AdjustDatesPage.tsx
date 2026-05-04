@@ -10,7 +10,7 @@ import { AppStateContext, UserInfoContext, type UserInfoValue } from "../App";
 import useActiveCourseAnnouncements, { type AnnouncementDateItem } from "../hooks/useActiveCourseAnnouncements";
 import ButtonPrimary from "../components/shared/buttons/ButtonPrimary";
 import PrimaryCard from "../components/shared/cards/PrimaryCard";
-import { CanvasRequest } from "../../shared/models/CanvasRequest";
+import { CANVAS_REQUEST_PUT, CanvasRequest } from "../../shared/models/CanvasRequest";
 import { Message, MESSAGE_SENDER, MESSAGE_TARGET, MESSAGE_TYPE } from "../../shared/models/Message";
 import {
   formatCanvasDateTime,
@@ -166,7 +166,7 @@ function AdjustDatesPage() {
     setIsApplying(true);
     setStatusMessage(null);
 
-    const requests = previewItems.map((item) => new CanvasRequest(CanvasRequest.Put.Announcement, {
+    const requests = previewItems.map((item) => new CanvasRequest(CANVAS_REQUEST_PUT.Announcement, {
       courseId: data.courseId,
       announcementId: item.id,
       delayedPostAt: item.newDateUtc,
@@ -259,7 +259,7 @@ function AdjustDatesPage() {
             <>
               <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
                 <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-                  <h3 className="text-gray-700 text-xl text-center">Shift Settings</h3>
+                  <h3 className="text-gray-700 text-xl text-center">Adjust by Days</h3>
                   <input
                     className="w-full px-2 py-1 bg-white text-base text-gray-700 rounded-sm shadow-inner border-2 border-gray-200 outline-blue-500"
                     type="number"
