@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom/vitest";
+import { Temporal } from "@js-temporal/polyfill";
 import { afterEach, vi } from "vitest";
 
 afterEach(() => {
@@ -14,6 +15,13 @@ Object.defineProperty(globalThis, "__app_description", {
   value: "test-description",
   configurable: true,
 });
+
+if (!("Temporal" in globalThis)) {
+  Object.defineProperty(globalThis, "Temporal", {
+    value: Temporal,
+    configurable: true,
+  });
+}
 
 Object.defineProperty(globalThis, "crypto", {
   value: {
