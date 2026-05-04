@@ -72,10 +72,18 @@ describe("TaskController", () => {
 
     controller.update();
 
-    expect(runTaskSpy).toHaveBeenCalledTimes(2);
+    expect(runTaskSpy).toHaveBeenCalledTimes(1);
     expect(runTaskSpy.mock.calls[0][0].id).toBe(firstTask.id);
-    expect(runTaskSpy.mock.calls[1][0].id).toBe(secondTask.id);
     expect(controller.getTaskById(firstTask.id)?.status).toBe(TaskStatuses.RUNNING);
+    expect(controller.getTaskById(secondTask.id)?.status).toBe(TaskStatuses.NOT_STARTED);
+
+    const runningTask = controller.getTaskById(firstTask.id);
+    if (runningTask) runningTask.setStatus(TaskStatuses.COMPLETE);
+
+    controller.update();
+
+    expect(runTaskSpy).toHaveBeenCalledTimes(2);
+    expect(runTaskSpy.mock.calls[1][0].id).toBe(secondTask.id);
     expect(controller.getTaskById(secondTask.id)?.status).toBe(TaskStatuses.COMPLETE);
   });
 
