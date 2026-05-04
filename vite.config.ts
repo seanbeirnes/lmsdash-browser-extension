@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import replace from "@rollup/plugin-replace";
@@ -16,8 +16,13 @@ const srcDir = resolve(rootDir, "src");
 export default defineConfig({
   plugins: [react()],
   publicDir: resolve(rootDir, "public"),
-  outDir: resolve(rootDir, "dist"),
+  test: {
+    environment: "node",
+    globals: true,
+    setupFiles: [resolve(rootDir, "vitest.setup.ts")],
+  },
   build: {
+    outDir: resolve(rootDir, "dist"),
     minify: isProduction,
     rollupOptions: {
       input: {

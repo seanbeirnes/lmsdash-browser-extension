@@ -88,8 +88,23 @@ export class TabHandler
         if (newTab.id !== undefined && this.canvasTabs.includes(newTab.id)) this.lastActiveTabId = newTab.id;
     }
 
+    private async bootstrapTabs(): Promise<void>
+    {
+        const tabs = await chrome.tabs.query({});
+
+        for (let i = 0; i < tabs.length; i++)
+        {
+            const tabId = tabs[i]?.id;
+            if (tabId !== undefined) await this.updateValidTabs(tabId);
+        }
+
+        await this.updateActiveTab();
+    }
+
     init(): null
     {
+        this.bootstrapTabs();
+
         // Add listeners to track all valid tabs
         chrome.tabs.onUpdated.addListener(async (tabId: number, info: any, tab: chrome.tabs.Tab) => {
             this.updateValidTabs(tabId);
