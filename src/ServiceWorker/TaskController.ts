@@ -134,6 +134,7 @@ export default class TaskController
       )
       {
         this.newTasks.push(task);
+        continue;
       }
 
       const isRunning = TaskRunner.runTask(task, this.appController);

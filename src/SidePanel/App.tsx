@@ -29,6 +29,7 @@ export interface UserInfoValue {
   email: string;
   sis_user_id: string;
   lmsInstance: string;
+  timeZone: string;
 }
 
 interface MessageDataState {
@@ -59,6 +60,7 @@ export const UserInfoContext = createContext<UserInfoValue>({
   email: "",
   sis_user_id: "",
   lmsInstance: "",
+  timeZone: "",
 });
 
 function App() {
@@ -81,6 +83,7 @@ function App() {
     email: "",
     sis_user_id: "",
     lmsInstance: "",
+    timeZone: "",
   });
 
   useEffect(() => {
@@ -137,6 +140,7 @@ function App() {
         short_name: string;
         email: string;
         sis_user_id: string;
+        time_zone?: string | null;
       };
 
       setUserInfo(() => {
@@ -149,6 +153,7 @@ function App() {
           email: userData.email,
           sis_user_id: userData.sis_user_id,
           lmsInstance: appState.activeTab?.url ? new URL(appState.activeTab.url).origin : "",
+          timeZone: userData.time_zone ?? "",
         };
       });
     };

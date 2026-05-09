@@ -3,6 +3,7 @@ import LoadingPage from "../pages/LoadingPage";
 import MenuPage from "../pages/MenuPage";
 import ErrorPage from "../pages/ErrorPage";
 import CoursesScannerPage from "../pages/CoursesScannerPage";
+import AdjustDatesPage from "../pages/AdjustDatesPage";
 import ExternalToolsPage from "../pages/ExternalToolsPage";
 import AdminToolsPage from "../pages/AdminToolsPage";
 import AboutPage from "../pages/AboutPage";
@@ -31,6 +32,9 @@ function PageRouter() {
 
       case ROUTER_PAGES.COURSES_SCANNER:
         return <CoursesScannerPage />;
+
+      case ROUTER_PAGES.ADJUST_DATES:
+        return <AdjustDatesPage />;
 
       case ROUTER_PAGES.EXTERNAL_TOOLS:
         return <ExternalToolsPage />;

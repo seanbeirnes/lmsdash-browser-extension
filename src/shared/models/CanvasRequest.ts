@@ -19,16 +19,21 @@ export const CANVAS_REQUEST_TYPE = {
     UsersSelf: 113,
     CoursesByTermId: 114,
   },
+  Put: {
+    Announcement: 200,
+  },
 } as const;
 
 export type CanvasRequestType = DeepValueOf<typeof CANVAS_REQUEST_TYPE>;
 export const CANVAS_REQUEST_GET = CANVAS_REQUEST_TYPE.Get;
+export const CANVAS_REQUEST_PUT = CANVAS_REQUEST_TYPE.Put;
 export type CanvasRequestGet = ValueOf<typeof CANVAS_REQUEST_GET>;
+export type CanvasRequestPut = ValueOf<typeof CANVAS_REQUEST_PUT>;
 
 export interface CanvasRequestInfo {
   id: string;
   created: number;
-  type: CanvasRequestGet;
+  type: CanvasRequestType;
   params: Record<string, any>;
 }
 
@@ -37,13 +42,14 @@ export class CanvasRequest {
   started: number | null;
   finished: number | null;
   id: string;
-  type: CanvasRequestGet;
+  type: CanvasRequestType;
   params: Record<string, any>;
 
   static readonly Get = CANVAS_REQUEST_TYPE.Get;
+  static readonly Put = CANVAS_REQUEST_TYPE.Put;
 
   constructor(
-    type: CanvasRequestGet,
+    type: CanvasRequestType,
     params: Record<string, any> = {},
     id: string = crypto.randomUUID(),
     created: number = Date.now()

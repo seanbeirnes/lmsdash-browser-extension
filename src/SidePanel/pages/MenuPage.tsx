@@ -2,7 +2,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { AppStateContext, UserInfoContext, type AppStateValue, type UserInfoValue } from "../App";
 import { useContext, useState } from "react";
-import { MagnifyingGlassIcon, RocketIcon, BackpackIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { MagnifyingGlassIcon, CalendarIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import Main from "../components/layout/Main";
 import { PageRouterContext } from "../router/PageRouter";
 import MenuButton from "../components/shared/buttons/MenuButton";
@@ -48,6 +48,11 @@ function MenuPage() {
             <MenuButton onClick={() => pageRouterState.setPage(ROUTER_PAGES.COURSES_SCANNER)}>
               <MagnifyingGlassIcon />
               Search Courses
+            </MenuButton>
+
+            <MenuButton onClick={() => pageRouterState.setPage(ROUTER_PAGES.ADJUST_DATES)}>
+              <CalendarIcon />
+              Adjust Dates
             </MenuButton>
             {/*Admin only buttons go below this line*/}
             {/*{appState.isAdmin && <MenuButton onClick={() => pageRouterState.setPage(ROUTER_PAGES.EXTERNAL_TOOLS)}>*/}
