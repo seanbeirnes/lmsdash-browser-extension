@@ -19,6 +19,7 @@ export default defineConfig({
   test: {
     environment: "node",
     globals: true,
+    exclude: ["**/node_modules/**", "**/.git/**", "**/dist/**", ".direnv/**"],
     setupFiles: [resolve(rootDir, "vitest.setup.ts")],
   },
   build: {
@@ -37,8 +38,8 @@ export default defineConfig({
       },
       plugins: [
         replace({
-          "process.env.NODE_ENV": () => isProduction ? JSON.stringify("production") : JSON.stringify("development"),
-          __dirname: (id) => isProduction ? "''" : `'${id}'`,
+          "process.env.NODE_ENV": () => (isProduction ? JSON.stringify("production") : JSON.stringify("development")),
+          __dirname: (id) => (isProduction ? "''" : `'${id}'`),
           __app_version: () => `'${manifest.version}'`,
           __app_description: () => `'${manifest.description}'`,
           preventAssignment: true,

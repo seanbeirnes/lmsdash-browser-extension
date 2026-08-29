@@ -46,6 +46,17 @@ Some code is shared among all three parts, and these are in the **shared** direc
 [Vite](https://github.com/vitejs/vite)
 
 ### Local Set Up
+The development tooling requires Node.js 24 or newer and Gitleaks. Install Gitleaks
+using the instructions for your operating system, then configure the executable for
+this repository:
+
+```shell
+git config --local gitleaks.path /path/to/gitleaks
+```
+
+The path must point to an executable Gitleaks binary. Husky runs the quality checks
+and local secret scan automatically before each push.
+
 1. Clone the repository.
 ```shell
 git clone https://github.com/seanbeirnes/lmsdash-browser-extension.git
@@ -54,6 +65,9 @@ git clone https://github.com/seanbeirnes/lmsdash-browser-extension.git
 ```shell
 cd lmsdash-browser-extension/
 ```
+
+Use Node.js 24 or newer when installing dependencies. The repository's `engines`
+field declares this requirement.
 
 #### Option A: npm directly
 3. Install the npm packages.
@@ -81,7 +95,19 @@ direnv allow
 npm install
 ```
 
-5. Build!
+### Manual Quality Checks
+Run the quality checks individually when needed:
+
+```shell
+npm run check
+npm run typecheck
+npm run test:run
+npm run build
+npm run validate:build
+npm run scan:secrets
+```
+
+### Build
 
 **Option 1:** Build the dev version (Runs slower due to extra logging)
 ```shell
