@@ -1,5 +1,5 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface MessageModalProps {
   title: string;

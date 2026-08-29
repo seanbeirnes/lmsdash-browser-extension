@@ -51,14 +51,15 @@ function SelectCourse({ courseId, setCourseIds }: SelectCourseProps) {
   });
 
   const course = data ? (JSON.parse(data.data[0].text) as CourseData) : null;
+  const selectedCourseId = course?.id;
 
   useEffect(() => {
-    if (course) {
-      setCourseIds([course.id]);
+    if (selectedCourseId !== undefined) {
+      setCourseIds([selectedCourseId]);
     } else {
       setCourseIds([]);
     }
-  }, [data, setCourseIds]);
+  }, [selectedCourseId, setCourseIds]);
 
   if (!courseId) {
     return (

@@ -30,9 +30,9 @@ function CourseItemResultsSection({ icon, title, items, infoModalCallback }: Cou
           {title}
         </h4>
         <ul className="ml-2">
-          {items.map((item, index) => {
+          {items.map((item) => {
             return (
-              <li key={`${title}-scan-results-${index}`}>
+              <li key={`${title}-scan-results-${item.id}`}>
                 <CourseItemScanResult
                   id={item.id}
                   name={item.name}

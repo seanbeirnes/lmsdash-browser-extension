@@ -112,7 +112,7 @@ function AdjustDatesPage() {
 
     const selectedItems = selectedAnnouncementIds
       .map((id) => announcementsMap.get(id))
-      .filter((item): item is AnnouncementDateItem => Boolean(item && item.delayedPostAt));
+      .filter((item): item is AnnouncementDateItem => Boolean(item?.delayedPostAt));
 
     return selectedItems.map((item) => {
       const oldDateUtc = item.delayedPostAt as string;

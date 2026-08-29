@@ -78,13 +78,17 @@ export default class Scanner {
 
     scanProperties.text.forEach((text) => {
       const results = Scanner.scanText(text, scanSettings);
-      results.matches.forEach((match) => matches.add(match));
+      results.matches.forEach((match) => {
+        matches.add(match);
+      });
       previews = previews.concat(results.previews);
     });
 
     scanProperties.html.forEach((html) => {
       const results = Scanner.scanHtml(html, scanSettings);
-      results.matches.forEach((match) => matches.add(match));
+      results.matches.forEach((match) => {
+        matches.add(match);
+      });
       previews = previews.concat(results.previews);
     });
 

@@ -1,10 +1,10 @@
 import { CanvasRequest } from "../../../shared/models/CanvasRequest";
 import Logger from "../../../shared/utils/Logger";
 import CourseScannerController from "./CourseScannerController";
-import Task from "../../../shared/models/Task";
+import type Task from "../../../shared/models/Task";
 import type { CanvasResponse } from "../../../shared/models/CanvasResponse";
 import type { CoursesScanSettings } from "../../../shared/models/CoursesScanSettings";
-import CourseScanResult from "../../../shared/models/CourseScanResult";
+import type CourseScanResult from "../../../shared/models/CourseScanResult";
 
 /* Using shared CoursesScanSettings type from ../../../shared/models/CoursesScanSettings */
 
@@ -124,9 +124,11 @@ export default class CoursesScanController {
       }
 
       const responseData = JSON.parse(response[0].text);
-      responseData.forEach((courseObj: any) => courseIds.push(courseObj["id"]));
+      responseData.forEach((courseObj: any) => {
+        courseIds.push(courseObj["id"]);
+      });
 
-      if (!response[0].link || !response[0].link.next) hasNextLink = false;
+      if (!response[0].link?.next) hasNextLink = false;
 
       page++;
     }

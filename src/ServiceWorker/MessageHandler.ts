@@ -53,7 +53,7 @@ export class MessageHandler {
 
   async handleSidePanelMessage(
     message: Message,
-    sender: chrome.runtime.MessageSender,
+    _sender: chrome.runtime.MessageSender,
     sendResponse: (response?: any) => void,
   ): Promise<void> {
     switch (message.type) {
@@ -267,7 +267,7 @@ export class MessageHandler {
   ////// Helper functions
   //////
   enqueueTask(task: Task | null | undefined): Task | null {
-    if (!task || !task.type) return null; // Check for a bad task model format
+    if (!task?.type) return null; // Check for a bad task model format
     return this.appController.taskController.enqueue(task); // Enqueue the task and return it with the new id
   }
 
@@ -284,7 +284,9 @@ export class MessageHandler {
     if (!tasks) return null;
 
     const taskCopies: Task[] = [];
-    tasks.forEach((task) => taskCopies.push(this.getSerializableTask(task)!));
+    tasks.forEach((task) => {
+      taskCopies.push(this.getSerializableTask(task)!);
+    });
 
     return taskCopies;
   }

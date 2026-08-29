@@ -86,11 +86,11 @@ export class TabHandler {
     this.bootstrapTabs();
 
     // Add listeners to track all valid tabs
-    chrome.tabs.onUpdated.addListener(async (tabId: number, info: any, tab: chrome.tabs.Tab) => {
+    chrome.tabs.onUpdated.addListener(async (tabId: number, _info: any, _tab: chrome.tabs.Tab) => {
       this.updateValidTabs(tabId);
     });
 
-    chrome.tabs.onRemoved.addListener(async (tabId: number, info: any) => {
+    chrome.tabs.onRemoved.addListener(async (tabId: number, _info: any) => {
       this.removeTab(tabId);
       if (this.lastActiveTabId === tabId) this.lastActiveTabId = null;
     });

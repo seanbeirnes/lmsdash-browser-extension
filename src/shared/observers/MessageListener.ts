@@ -1,4 +1,4 @@
-import { Message, MessageTarget } from "../models/Message";
+import type { Message, MessageTarget } from "../models/Message";
 
 export class MessageListener<TArgs = any> {
   target: MessageTarget;

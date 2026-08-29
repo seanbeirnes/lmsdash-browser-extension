@@ -117,6 +117,6 @@ export class AppController implements MessageHandlerAppControllerLike, TaskContr
       new CanvasRequest(CanvasRequest.Get.CoursesAccount, { page: 1, perPage: 10 }),
     ]);
 
-    return !!(response && response[0] && (response[0] as any).status !== 401);
+    return !!(response?.[0] && (response[0] as any).status !== 401);
   }
 }

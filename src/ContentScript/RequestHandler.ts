@@ -1,5 +1,5 @@
 import { CanvasAPIClient } from "./CanvasAPIClient";
-import { CanvasRequest, CanvasRequestType } from "../shared/models/CanvasRequest";
+import { CanvasRequest, type CanvasRequestType } from "../shared/models/CanvasRequest";
 import { CanvasResponse } from "../shared/models/CanvasResponse";
 
 export interface CanvasRequestParams {
@@ -36,7 +36,9 @@ export class RequestHandler {
   }
 
   enqueueList(requests: CanvasRequestLike[]): void {
-    requests.forEach((req) => this.enqueue(req));
+    requests.forEach((req) => {
+      this.enqueue(req);
+    });
   }
 
   // Returns a dictionary key/value pair of the link header if it is not null

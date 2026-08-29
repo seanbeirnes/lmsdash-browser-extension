@@ -158,7 +158,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
         {taskData.resultsData?.length < 1 ? (
           <p className="text-lg text-gray-700 text-center font-bold">No scan results found.</p>
         ) : (
-          taskData.resultsData.map((course, index) => {
+          taskData.resultsData.map((course) => {
             return (
               <CourseScanResult
                 id={course.id}
@@ -170,7 +170,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
                 items={course.items}
                 defaultOpen={taskData.resultsData.length === 1}
                 infoModalCallback={infoModalCallback}
-                key={`course-id-${index}`}
+                key={`course-id-${course.id}`}
               />
             );
           })
@@ -209,9 +209,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-dvw max-w-[85dvw] sm:max-w-lg max-h-[85dvh] min-h-32 p-8 text-2xl bg-white shadow-lg rounded-sm"
           >
             <Dialog.Title className="text-gray-700 font-bold mb-2 text-center">Scan Result Details</Dialog.Title>
-            <Dialog.Description className="text-sm text-gray-700">
-              {curDetails !== null && curDetails.name}
-            </Dialog.Description>
+            <Dialog.Description className="text-sm text-gray-700">{curDetails?.name}</Dialog.Description>
             <Tabs.Root className="flex flex-col w-full h-80" defaultValue="tab1">
               <Tabs.List className="shrink-0 flex border-b border-gray-200" aria-label="View details for course item">
                 <Tabs.Trigger
@@ -230,9 +228,9 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
               <Tabs.Content value="tab1" className="grow">
                 {curDetails !== null && curDetails.previews.length > 0 && (
                   <div className="w-full h-72 p-4 flex flex-col overflow-y-scroll bg-gray-200 rounded-b shadow-inner">
-                    {curDetails.previews.map((preview, index) => {
+                    {curDetails.previews.map((preview) => {
                       return (
-                        <div className="w-full break-all" key={`preview-${index}`}>
+                        <div className="w-full break-all" key={`preview-${preview.join("-")}`}>
                           <p className="text-sm font-mono">
                             {preview[0] ? preview[0] : ""}
                             <span className="py-1 rounded-sm bg-blue-200 font-bold">{preview[1]}</span>

@@ -10,7 +10,7 @@ export default async function downloadCSV(rows: BlobPart): Promise<void> {
       a.href = url;
       a.download = `lmsdash-export_${date.toISOString()}.csv`;
       a.click();
-    } catch (error) {
+    } catch {
       reject();
     }
     resolve();

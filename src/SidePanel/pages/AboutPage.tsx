@@ -7,13 +7,12 @@ import Main from "../components/layout/Main";
 import Footer from "../components/layout/Footer";
 import PrimaryCard from "../components/shared/cards/PrimaryCard";
 import PrimaryCardLayout from "../components/shared/cards/PrimaryCardLayout";
-import { AppStateContext, UserInfoContext, type AppStateValue, type UserInfoValue } from "../App";
+import { UserInfoContext, type UserInfoValue } from "../App";
 import { ROUTER_PAGES } from "../types";
 import Config from "../../shared/config/Config";
 
 function AboutPage() {
   const pageRouterState = useContext(PageRouterContext);
-  const appState = useContext(AppStateContext) as AppStateValue;
   const userInfo = useContext(UserInfoContext) as UserInfoValue;
 
   return (

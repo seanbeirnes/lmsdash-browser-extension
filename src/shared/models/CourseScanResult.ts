@@ -1,7 +1,7 @@
 /**
  * Holds the resulting data for a course scan
  */
-import CourseItemScanResult from "./CourseItemScanResult";
+import type CourseItemScanResult from "./CourseItemScanResult";
 import { CourseItemTypes, type CourseItemType } from "./CourseItem";
 
 type CourseInfo = Record<string, any>;

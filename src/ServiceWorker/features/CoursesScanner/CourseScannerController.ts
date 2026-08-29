@@ -48,7 +48,7 @@ export default class CourseScannerController {
     ]);
 
     Logger.debug(__dirname, "Course info response: " + JSON.stringify(response));
-    if (!response || !response[0] || !response[0].ok || !response[0].text) return false;
+    if (!response?.[0]?.ok || !response[0].text) return false;
 
     this.courseInfo = JSON.parse(response[0].text);
 

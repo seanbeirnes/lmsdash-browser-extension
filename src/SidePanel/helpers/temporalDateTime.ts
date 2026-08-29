@@ -32,7 +32,7 @@ function getTemporal(): TemporalGlobalLike | null {
 
 export function hasNativeTemporal(): boolean {
   const temporal = getTemporal();
-  return Boolean(temporal && temporal.Instant);
+  return Boolean(temporal?.Instant);
 }
 
 function normalizeTimeZone(value: string | null | undefined): string {

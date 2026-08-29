@@ -7,7 +7,7 @@ declare const __dirname: string;
 
 const requestHandler = new RequestHandler();
 
-chrome.runtime.onMessage.addListener((message: Message, sender: any, sendResponse: (resp: any) => void) => {
+chrome.runtime.onMessage.addListener((message: Message, _sender: any, sendResponse: (resp: any) => void) => {
   const isTarget = message.target === MESSAGE_TARGET.TAB && message.type === MESSAGE_TYPE.Canvas.REQUESTS;
 
   (async () => {

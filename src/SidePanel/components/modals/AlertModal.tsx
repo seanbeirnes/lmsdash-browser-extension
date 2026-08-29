@@ -1,7 +1,7 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import ButtonPrimary from "../shared/buttons/ButtonPrimary";
 import ButtonSecondary from "../shared/buttons/ButtonSecondary";
-import { MouseEventHandler, ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 
 interface AlertModalProps {
   children: ReactNode;

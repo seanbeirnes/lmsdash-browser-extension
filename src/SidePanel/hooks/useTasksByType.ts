@@ -1,6 +1,6 @@
 import { Message, MESSAGE_SENDER, MESSAGE_TARGET, MESSAGE_TYPE } from "../../shared/models/Message";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { TaskType } from "../../shared/models/Task";
+import { type QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import type { TaskType } from "../../shared/models/Task";
 
 type TaskTypeQueryKey = [string, { taskType: TaskType }];
 

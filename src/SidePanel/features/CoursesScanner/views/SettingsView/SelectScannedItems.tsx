@@ -107,10 +107,11 @@ function SelectScannedItems({ scannedItems, setScannedItems, scanType }: SelectS
   }
 
   useEffect(() => {
-    scannedItems.forEach((scannedItem) => {
-      if (unAuthorizedItems.includes(scannedItem)) handleSwitchChange(scannedItem);
-    });
-  }, [unAuthorizedItems]);
+    const authorizedScannedItems = scannedItems.filter((scannedItem) => !unAuthorizedItems.includes(scannedItem));
+    if (authorizedScannedItems.length !== scannedItems.length) {
+      setScannedItems(authorizedScannedItems);
+    }
+  }, [scannedItems, setScannedItems, unAuthorizedItems]);
 
   const switchRootClasses =
     "relative w-8 h-5 bg-gray-200 data-[state='checked']:bg-blue-500 transition shadow-inner rounded-full";

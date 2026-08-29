@@ -1,7 +1,8 @@
-import Scannable, { ScannableTypes } from "./Scannable";
+import type Scannable from "./Scannable";
+import { ScannableTypes } from "./Scannable";
 import { CanvasRequest } from "../../../shared/models/CanvasRequest";
 import Logger from "../../../shared/utils/Logger";
-import { CanvasResponse } from "../../../shared/models/CanvasResponse";
+import type { CanvasResponse } from "../../../shared/models/CanvasResponse";
 
 type CourseInfo = Record<string, any>;
 

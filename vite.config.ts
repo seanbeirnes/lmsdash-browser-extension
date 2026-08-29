@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import { resolve } from "node:path";
 import replace from "@rollup/plugin-replace";
 
 const manifest = JSON.parse(fs.readFileSync("manifest.json", "utf-8")) as {

@@ -44,7 +44,7 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
                 value={term}
                 updateSearchTerm={updateSearchTerm}
                 removeSearchTerm={removeSearchTerm}
-                key={`search-term${index}`}
+                key={term}
                 deleteDisabled={searchTerms.length < 2}
               />
             );

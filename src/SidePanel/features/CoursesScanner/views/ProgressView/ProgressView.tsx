@@ -28,7 +28,7 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
   const taskData = data as ProgressTask | undefined;
 
   useEffect(() => {
-    if (!taskData || !taskData.status) return;
+    if (!taskData?.status) return;
     if (taskData.status === TaskStatuses.COMPLETE) viewResultsCallback();
     if (taskData.status === TaskStatuses.FAILED && !stoppingScan) setScanError(true);
   }, [taskData, viewResultsCallback, stoppingScan]);
@@ -54,7 +54,7 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
         <PrimaryCard fixedWidth={false} minHeight={false} className="w-full min-h-52">
           <div className="self-stretch grid grid-cols-1 grid-flow-row justify-start content-start gap-2">
             <h2 className="text-gray-700 text-xl text-center font-bold">
-              {taskData && taskData.progressData && taskData.progressData.length > 0
+              {taskData?.progressData && taskData.progressData.length > 0
                 ? taskData.progressData[0]
                 : "Fetching data..."}
             </h2>
@@ -65,7 +65,7 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
           <div className="justify-self-center self-end w-full max-w-sm">
             <ButtonPrimaryDanger
               onClick={stopScanCallback}
-              disabled={taskData && taskData.status ? taskData.status !== TaskStatuses.RUNNING : false}
+              disabled={taskData?.status ? taskData.status !== TaskStatuses.RUNNING : false}
             >
               Stop Scan
             </ButtonPrimaryDanger>

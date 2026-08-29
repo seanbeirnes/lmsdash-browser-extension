@@ -80,12 +80,14 @@ export class CanvasRequest {
   }
 
   start(): number {
-    return (this.started = Date.now());
+    this.started = Date.now();
+    return this.started;
   }
 
   finish(): number | null {
     if (this.started !== null) {
-      return (this.finished = Date.now());
+      this.finished = Date.now();
+      return this.finished;
     }
 
     return null;

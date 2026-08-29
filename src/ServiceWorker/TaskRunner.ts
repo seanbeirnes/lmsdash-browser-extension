@@ -1,4 +1,5 @@
-import Task, { TaskTypes, TaskStatuses } from "../shared/models/Task";
+import type Task from "../shared/models/Task";
+import { TaskTypes, TaskStatuses } from "../shared/models/Task";
 import Logger from "../shared/utils/Logger";
 import CoursesScanController from "./features/CoursesScanner/CoursesScanController";
 import type { CanvasRequest } from "../shared/models/CanvasRequest";

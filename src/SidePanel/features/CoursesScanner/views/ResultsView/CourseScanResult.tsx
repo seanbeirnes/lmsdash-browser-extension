@@ -72,7 +72,10 @@ function CourseScanResult({
               {name}
             </a>
           </h3>
-          <Collapsible.Trigger className="text-blue-600 rounded-sm hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner">
+          <Collapsible.Trigger
+            aria-label={open ? "Collapse course results" : "Expand course results"}
+            className="text-blue-600 rounded-sm hover:text-blue-50 hover:bg-blue-500 active:bg-blue-400 active:shadow-inner"
+          >
             {open ? <CaretUnsortIcon className="w-9 h-9" /> : <CaretSortIcon className="w-9 h-9" />}
           </Collapsible.Trigger>
         </div>

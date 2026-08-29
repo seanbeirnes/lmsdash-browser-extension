@@ -79,11 +79,11 @@ function CourseItemScanResult({
         >
           <div className="flex flex-col justify-start gap-2">
             <span className="w-full text-center font-bold">Matches</span>
-            {matches.map((match, index) => {
+            {matches.map((match) => {
               return (
                 <p
                   className="w-full sm:w-fit px-4 py-1 text-sm text-gray-400 bg-gray-100 text-center rounded-full"
-                  key={`match-${index}`}
+                  key={`match-${match}`}
                 >
                   {match}
                 </p>

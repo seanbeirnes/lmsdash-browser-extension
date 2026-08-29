@@ -5,7 +5,7 @@ import Logger from "../../../../shared/utils/Logger";
 import ProgressView from "../views/ProgressView/ProgressView";
 import { Message, MESSAGE_SENDER, MESSAGE_TARGET, MESSAGE_TYPE } from "../../../../shared/models/Message";
 import Task, { TaskStatuses, TaskTypes } from "../../../../shared/models/Task";
-import { CoursesScanSettings, ScanType } from "../../../../shared/models/CoursesScanSettings";
+import { CoursesScanSettings, type ScanType } from "../../../../shared/models/CoursesScanSettings";
 import { useMutation } from "@tanstack/react-query";
 import { UserInfoContext } from "../../../App";
 import ProgressSpinner from "../../../components/shared/progress/ProgressSpinner";

@@ -31,33 +31,23 @@
     "enabled": true,
     "rules": {
       "preset": "recommended",
-      "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useButtonType": "off"
-      },
       "complexity": {
         "noStaticOnlyClass": "off",
         "noThisInStatic": "off",
         "useLiteralKeys": "off",
-        "useOptionalChain": "off"
+        "useOptionalChain": "warn"
       },
       "correctness": {
-        "noUnusedFunctionParameters": "off",
-        "noUnusedImports": "off",
-        "noUnusedVariables": "off",
-        "useExhaustiveDependencies": "off"
+        "noUnusedFunctionParameters": "warn",
+        "noUnusedImports": "warn",
+        "noUnusedVariables": "warn"
       },
       "suspicious": {
-        "noAssignInExpressions": "off",
         "noConsole": "off",
-        "noExplicitAny": "off",
-        "noArrayIndexKey": "off",
-        "useIterableCallbackReturn": "off"
+        "noExplicitAny": "off"
       },
       "style": {
         "noNonNullAssertion": "off",
-        "useImportType": "off",
-        "useNodejsImportProtocol": "off",
         "useTemplate": "off"
       }
     }
