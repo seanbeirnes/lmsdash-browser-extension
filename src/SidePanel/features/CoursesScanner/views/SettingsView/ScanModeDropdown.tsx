@@ -20,7 +20,10 @@ function ScanModeDropdown({ value, onChange }: ScanModeDropdownProps) {
       </Select.Trigger>
 
       <Select.Portal>
-        <Select.Content className="w-(--radix-select-trigger-width) overflow-hidden bg-white rounded-sm shadow-md" position="popper">
+        <Select.Content
+          className="w-(--radix-select-trigger-width) overflow-hidden bg-white rounded-sm shadow-md"
+          position="popper"
+        >
           <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-white text-blue-600 cursor-default">
             <ChevronUpIcon />
           </Select.ScrollUpButton>
@@ -38,10 +41,7 @@ function ScanModeDropdown({ value, onChange }: ScanModeDropdownProps) {
   );
 }
 
-const SelectItem = forwardRef<
-  HTMLDivElement,
-  Select.SelectItemProps
->(({ children, ...props }, forwardedRef) => {
+const SelectItem = forwardRef<HTMLDivElement, Select.SelectItemProps>(({ children, ...props }, forwardedRef) => {
   return (
     <Select.Item
       className="text-base leading-none text-blue-600 rounded-sm flex items-center h-9 pr-9 pl-9 relative select-none data-disabled:text-gray-200 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-blue-500 data-highlighted:text-white"

@@ -16,9 +16,7 @@ interface SelectTermProps {
 }
 
 const LoadingIndicator = () => {
-  return (
-    <ProgressSpinner className="w-6 h-6" />
-  );
+  return <ProgressSpinner className="w-6 h-6" />;
 };
 
 const DropdownIndicator = (props: DropdownIndicatorProps<SearchOption>) => {
@@ -35,7 +33,7 @@ function SelectTerm({ setScanType }: SelectTermProps) {
   const [inputText, setInputText] = useState("");
   const setSearchTermDebounced = useCallback(
     Utils.debounce((nextInput: string) => setSearchTerm(nextInput), 500),
-    []
+    [],
   );
 
   const { isPending, data } = useTermsSearch(searchTerm);
@@ -61,9 +59,11 @@ function SelectTerm({ setScanType }: SelectTermProps) {
         components={{ LoadingIndicator, DropdownIndicator }}
         unstyled={true}
         classNames={{
-          control: () => "group px-4 py-1 h-9 bg-white text-base text-gray-700 border-2 border-gray-200 shadow-inner rounded-sm outline-blue-500",
+          control: () =>
+            "group px-4 py-1 h-9 bg-white text-base text-gray-700 border-2 border-gray-200 shadow-inner rounded-sm outline-blue-500",
           menu: () => "p-1 bg-white rounded-sm shadow-md overflow-hidden",
-          option: (state) => `my-1 px-3 text-base rounded-sm ${state.isSelected ? "bg-blue-500 text-white" : "text-blue-600"} hover:bg-blue-500 hover:text-white`,
+          option: (state) =>
+            `my-1 px-3 text-base rounded-sm ${state.isSelected ? "bg-blue-500 text-white" : "text-blue-600"} hover:bg-blue-500 hover:text-white`,
           placeholder: () => "text-base text-gray-400",
           loadingMessage: () => "text-base text-gray-400",
           noOptionsMessage: () => "text-base text-gray-400",
@@ -81,8 +81,14 @@ function SelectTerm({ setScanType }: SelectTermProps) {
 
       {selectedTerm ? (
         <>
-          <p><span className="font-bold">Selected Term: </span>{selectedTerm.label}</p>
-          <p><span className="font-bold">Term ID: </span>{selectedTerm.value}</p>
+          <p>
+            <span className="font-bold">Selected Term: </span>
+            {selectedTerm.label}
+          </p>
+          <p>
+            <span className="font-bold">Term ID: </span>
+            {selectedTerm.value}
+          </p>
         </>
       ) : (
         <p>No term selected.</p>

@@ -58,10 +58,10 @@ async function sendCanvasRequests(requests: CanvasRequest[]): Promise<CanvasResp
     MESSAGE_SENDER.SIDE_PANEL,
     MESSAGE_TYPE.Canvas.REQUESTS,
     "Canvas requests",
-    requests
+    requests,
   );
 
-  const msgResponse = await chrome.runtime.sendMessage(msgRequest) as { data?: CanvasResponseItem[] };
+  const msgResponse = (await chrome.runtime.sendMessage(msgRequest)) as { data?: CanvasResponseItem[] };
   return msgResponse.data ?? [];
 }
 

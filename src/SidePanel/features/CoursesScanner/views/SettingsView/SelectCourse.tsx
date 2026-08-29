@@ -22,16 +22,20 @@ interface SelectCourseProps {
 }
 
 function SelectCourse({ courseId, setCourseIds }: SelectCourseProps) {
-  async function fetchCourse({ queryKey }: { queryKey: [string, { courseId: number | string | null }] }): Promise<{ data: CanvasResponse[] }> {
+  async function fetchCourse({
+    queryKey,
+  }: {
+    queryKey: [string, { courseId: number | string | null }];
+  }): Promise<{ data: CanvasResponse[] }> {
     const [_key, { courseId }] = queryKey;
     const msgRequest = new Message(
       MESSAGE_TARGET.SERVICE_WORKER,
       MESSAGE_SENDER.SIDE_PANEL,
       MESSAGE_TYPE.Canvas.REQUESTS,
       "Course request",
-      [new CanvasRequest(CanvasRequest.Get.Course, { courseId })]
+      [new CanvasRequest(CanvasRequest.Get.Course, { courseId })],
     );
-    const msgResponse = await chrome.runtime.sendMessage(msgRequest) as { data: CanvasResponse[] };
+    const msgResponse = (await chrome.runtime.sendMessage(msgRequest)) as { data: CanvasResponse[] };
 
     if (msgResponse.data.length === 0) throw Error("Course Not Found");
     if (msgResponse.data[0].status >= 400) throw Error("Error fetching course info");
@@ -46,7 +50,7 @@ function SelectCourse({ courseId, setCourseIds }: SelectCourseProps) {
     enabled: !!courseId,
   });
 
-  const course = data ? JSON.parse(data.data[0].text) as CourseData : null;
+  const course = data ? (JSON.parse(data.data[0].text) as CourseData) : null;
 
   useEffect(() => {
     if (course) {
@@ -74,22 +78,29 @@ function SelectCourse({ courseId, setCourseIds }: SelectCourseProps) {
   }
 
   if (isError) {
-    return (
-      <p>{error.message}</p>
-    );
+    return <p>{error.message}</p>;
   }
 
   if (!course) {
-    return (
-      <p>No course information received.</p>
-    );
+    return <p>No course information received.</p>;
   }
 
   return (
     <div className="text-base text-gray-700">
-      <p><span className="font-bold">Title: </span>{course.name}</p>
-      <p><span className="font-bold">Code:  </span>{course.course_code}</p>
-      {course.sis_course_id && (<p><span className="font-bold">SISID: </span>{course.sis_course_id}</p>)}
+      <p>
+        <span className="font-bold">Title: </span>
+        {course.name}
+      </p>
+      <p>
+        <span className="font-bold">Code: </span>
+        {course.course_code}
+      </p>
+      {course.sis_course_id && (
+        <p>
+          <span className="font-bold">SISID: </span>
+          {course.sis_course_id}
+        </p>
+      )}
     </div>
   );
 }

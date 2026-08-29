@@ -16,7 +16,7 @@ describe("Message", () => {
       MESSAGE_TYPE.Task.Request.NEW,
       "Start task",
       task,
-      12345
+      12345,
     );
 
     expect(message).toMatchObject({
@@ -36,7 +36,7 @@ describe("Message", () => {
       MESSAGE_SENDER.SERVICE_WORKER,
       MESSAGE_TYPE.Canvas.REQUESTS,
       undefined,
-      [request]
+      [request],
     );
 
     expect(message.target).toBe(MESSAGE_TARGET.TAB);

@@ -12,14 +12,11 @@ export interface AppControllerLike {
   messageHandler: MessageHandlerLike;
 }
 
-export default class TaskRunner
-{
-  static runTask(task: Task, appController: AppControllerLike): boolean
-  {
+export default class TaskRunner {
+  static runTask(task: Task, appController: AppControllerLike): boolean {
     let isRunning = false;
 
-    switch (task.type)
-    {
+    switch (task.type) {
       case TaskTypes.coursesScan:
         isRunning = TaskRunner.runCoursesScan(task, appController);
         break;
@@ -30,12 +27,9 @@ export default class TaskRunner
 
     task.setTimeStarted();
 
-    if (isRunning)
-    {
+    if (isRunning) {
       task.setStatus(TaskStatuses.RUNNING);
-    }
-    else
-    {
+    } else {
       task.setStatus(TaskStatuses.FAILED);
       task.setTimeFinished();
     }
@@ -43,8 +37,7 @@ export default class TaskRunner
     return isRunning;
   }
 
-  static runCoursesScan(task: Task, appController: AppControllerLike): boolean
-  {
+  static runCoursesScan(task: Task, appController: AppControllerLike): boolean {
     const controller = new CoursesScanController(task, appController);
     task.controller = controller;
     controller.start();

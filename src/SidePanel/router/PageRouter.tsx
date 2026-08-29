@@ -50,11 +50,7 @@ function PageRouter() {
     }
   }
 
-  return (
-    <PageRouterContext.Provider value={{ page, setPage }}>
-      {renderPage(page)}
-    </PageRouterContext.Provider>
-  );
+  return <PageRouterContext.Provider value={{ page, setPage }}>{renderPage(page)}</PageRouterContext.Provider>;
 }
 
 export default PageRouter;

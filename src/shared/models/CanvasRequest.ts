@@ -52,7 +52,7 @@ export class CanvasRequest {
     type: CanvasRequestType,
     params: Record<string, any> = {},
     id: string = crypto.randomUUID(),
-    created: number = Date.now()
+    created: number = Date.now(),
   ) {
     this.created = created;
     this.started = null;

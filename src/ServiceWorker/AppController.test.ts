@@ -43,16 +43,16 @@ describe("AppController", () => {
   });
 
   it("notifies the side panel when tab availability changes", async () => {
-    vi.spyOn(TabHandler.prototype, "hasTabs")
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(true);
+    vi.spyOn(TabHandler.prototype, "hasTabs").mockReturnValueOnce(false).mockReturnValueOnce(true);
     vi.spyOn(TabHandler.prototype, "getLastActiveTabId").mockReturnValue(88);
     vi.mocked(chrome.tabs.get as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
       id: 88,
       url: "https://school.instructure.com/courses/88/pages/home",
       active: true,
     } as chrome.tabs.Tab);
-    const sendSidePanelMessageSpy = vi.spyOn(MessageHandler.prototype, "sendSidePanelMessage").mockResolvedValue(undefined);
+    const sendSidePanelMessageSpy = vi
+      .spyOn(MessageHandler.prototype, "sendSidePanelMessage")
+      .mockResolvedValue(undefined);
     vi.spyOn(MessageHandler.prototype, "sendCanvasRequests").mockResolvedValue([
       new CanvasResponse("test-uuid", "[]", false, null, true, false, 200, "OK", "basic"),
     ]);
@@ -68,7 +68,9 @@ describe("AppController", () => {
   it("does not notify the side panel when state is unchanged", async () => {
     vi.spyOn(TabHandler.prototype, "hasTabs").mockReturnValue(false);
     vi.spyOn(TabHandler.prototype, "getLastActiveTabId").mockReturnValue(null);
-    const sendSidePanelMessageSpy = vi.spyOn(MessageHandler.prototype, "sendSidePanelMessage").mockResolvedValue(undefined);
+    const sendSidePanelMessageSpy = vi
+      .spyOn(MessageHandler.prototype, "sendSidePanelMessage")
+      .mockResolvedValue(undefined);
 
     const controller = new AppController();
     sendSidePanelMessageSpy.mockClear();

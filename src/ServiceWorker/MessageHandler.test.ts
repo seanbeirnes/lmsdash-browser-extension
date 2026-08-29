@@ -40,10 +40,10 @@ describe("MessageHandler", () => {
         MESSAGE_TARGET.SERVICE_WORKER,
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.App.SET_PANEL_OPENED,
-        "opened"
+        "opened",
       ),
       {} as chrome.runtime.MessageSender,
-      sendResponse
+      sendResponse,
     );
 
     expect(appController.setSidePanelOpen).toHaveBeenCalledTimes(1);
@@ -68,10 +68,10 @@ describe("MessageHandler", () => {
         MESSAGE_TARGET.SERVICE_WORKER,
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.Info.USER,
-        "user"
+        "user",
       ),
       {} as chrome.runtime.MessageSender,
-      sendResponse
+      sendResponse,
     );
 
     expect(sendCanvasRequestsSpy).toHaveBeenCalledTimes(1);
@@ -103,10 +103,10 @@ describe("MessageHandler", () => {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.BY_ID,
         "task by id",
-        4
+        4,
       ),
       {} as chrome.runtime.MessageSender,
-      sendResponse
+      sendResponse,
     );
 
     const response = sendResponse.mock.calls[0][0] as Message;
@@ -137,10 +137,10 @@ describe("MessageHandler", () => {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.BY_TYPE,
         "tasks by type",
-        TaskTypes.coursesScan
+        TaskTypes.coursesScan,
       ),
       {} as chrome.runtime.MessageSender,
-      sendResponse
+      sendResponse,
     );
 
     const response = sendResponse.mock.calls[0][0] as Message;
@@ -166,10 +166,10 @@ describe("MessageHandler", () => {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.STOP,
         "stop task",
-        5
+        5,
       ),
       {} as chrome.runtime.MessageSender,
-      sendResponse
+      sendResponse,
     );
 
     expect(appController.taskController.stopTask).toHaveBeenCalledWith(5);

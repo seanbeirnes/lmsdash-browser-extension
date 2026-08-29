@@ -61,7 +61,10 @@ export function isValidTimeZone(timeZone: string | null | undefined): boolean {
   }
 }
 
-export function resolveEffectiveCanvasTimeZone(userTimeZone: string | null | undefined, courseTimeZone: string | null | undefined): string {
+export function resolveEffectiveCanvasTimeZone(
+  userTimeZone: string | null | undefined,
+  courseTimeZone: string | null | undefined,
+): string {
   const normalizedUserTimeZone = normalizeTimeZone(userTimeZone);
   if (isValidTimeZone(normalizedUserTimeZone)) {
     return normalizedUserTimeZone;

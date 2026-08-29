@@ -24,7 +24,7 @@ function AppStateModalController({ children }: AppStateModalControllerProps) {
 
   return (
     <>
-      {modalSettings !== null && (<MessageModal title={modalSettings.title}>{modalSettings.text}</MessageModal>)}
+      {modalSettings !== null && <MessageModal title={modalSettings.title}>{modalSettings.text}</MessageModal>}
       {children}
     </>
   );

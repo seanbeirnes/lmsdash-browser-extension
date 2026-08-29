@@ -12,5 +12,5 @@ export default function ErrorPage() {
       </Main>
       <Footer />
     </>
-  )
+  );
 }

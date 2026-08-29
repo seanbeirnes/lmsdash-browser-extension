@@ -20,10 +20,12 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
   }
 
   function updateSearchTerm(index: number, value: string): void {
-    setSearchTerms(searchTerms.map((term, itemIndex) => {
-      if (itemIndex === index) return value;
-      return term;
-    }));
+    setSearchTerms(
+      searchTerms.map((term, itemIndex) => {
+        if (itemIndex === index) return value;
+        return term;
+      }),
+    );
   }
 
   function removeSearchTerm(index: number): void {
@@ -35,21 +37,27 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
       <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
         <h3 className="text-gray-700 text-xl text-center">Search Terms</h3>
         <div className={`flex flex-col gap-2 max-h-56 ${searchTerms.length > 5 ? "overflow-y-scroll" : ""}`}>
-          {
-            searchTerms.map((term, index) => {
-              return <SearchTermInput index={index}
-                                      value={term}
-                                      updateSearchTerm={updateSearchTerm}
-                                      removeSearchTerm={removeSearchTerm}
-                                      key={`search-term${index}`}
-                                      deleteDisabled={searchTerms.length < 2} />;
-            })
-          }
+          {searchTerms.map((term, index) => {
+            return (
+              <SearchTermInput
+                index={index}
+                value={term}
+                updateSearchTerm={updateSearchTerm}
+                removeSearchTerm={removeSearchTerm}
+                key={`search-term${index}`}
+                deleteDisabled={searchTerms.length < 2}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="self-end mt-2">
-        <ButtonPrimary onClick={() => { if (canAddTerm()) setSearchTerms([...searchTerms, ""]); }}
-                       disabled={!canAddTerm()}>
+        <ButtonPrimary
+          onClick={() => {
+            if (canAddTerm()) setSearchTerms([...searchTerms, ""]);
+          }}
+          disabled={!canAddTerm()}
+        >
           <span>+</span>
         </ButtonPrimary>
       </div>

@@ -24,10 +24,10 @@ export default function useTermsSearch(searchTerm: string) {
       MESSAGE_SENDER.SIDE_PANEL,
       MESSAGE_TYPE.Canvas.REQUESTS,
       "Course request",
-      [new CanvasRequest(CanvasRequest.Get.TermsBySearch, { searchTerm })]
+      [new CanvasRequest(CanvasRequest.Get.TermsBySearch, { searchTerm })],
     );
 
-    const msgResponse = await chrome.runtime.sendMessage(msgRequest) as {
+    const msgResponse = (await chrome.runtime.sendMessage(msgRequest)) as {
       data: Array<{ status: number; text: string }>;
     };
 

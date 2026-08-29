@@ -56,7 +56,7 @@ function CoursesScanController() {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.NEW,
         "New course scan request",
-        new Task(TaskTypes.coursesScan, scanSettings)
+        new Task(TaskTypes.coursesScan, scanSettings),
       );
       const msgResponse = await chrome.runtime.sendMessage(msgRequest);
       return msgResponse.data;
@@ -73,7 +73,7 @@ function CoursesScanController() {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.STOP,
         "Stop scan task request",
-        taskId
+        taskId,
       );
       const msgResponse = await chrome.runtime.sendMessage(msgRequest);
       return msgResponse.data;
@@ -84,13 +84,16 @@ function CoursesScanController() {
   });
 
   function runScanCallback() {
-    Logger.debug("CoursesScanController", `\n${scanType}\n${courseIds}\n${searchTerms}\n${scannedItems}\n${settings}\n${userInfo.lmsInstance}`);
+    Logger.debug(
+      "CoursesScanController",
+      `\n${scanType}\n${courseIds}\n${searchTerms}\n${scannedItems}\n${settings}\n${userInfo.lmsInstance}`,
+    );
 
-    const mappedScanType: ScanType = scanType[0] === "term" && scanType[1]
-      ? ["term", scanType[1]]
-      : "course";
+    const mappedScanType: ScanType = scanType[0] === "term" && scanType[1] ? ["term", scanType[1]] : "course";
 
-    createTask.mutate(new CoursesScanSettings(mappedScanType, courseIds, searchTerms, scannedItems, settings, userInfo.lmsInstance));
+    createTask.mutate(
+      new CoursesScanSettings(mappedScanType, courseIds, searchTerms, scannedItems, settings, userInfo.lmsInstance),
+    );
 
     if (scanType[0] === "term") setScanType(["term"]);
   }
@@ -114,49 +117,53 @@ function CoursesScanController() {
   }
 
   if (isPending) {
-    return (
-      <ProgressSpinner className="" />
-    );
+    return <ProgressSpinner className="" />;
   }
 
   if (runningTaskId !== null) {
     return (
-      <ProgressView taskId={runningTaskId} viewResultsCallback={viewResultsCallback} stopScanCallback={stopScanCallback} />
+      <ProgressView
+        taskId={runningTaskId}
+        viewResultsCallback={viewResultsCallback}
+        stopScanCallback={stopScanCallback}
+      />
     );
   }
 
   if (completedTaskId !== null) {
-    return (
-      <ResultsView taskId={completedTaskId} scanAgainCallback={scanAgainCallback} />
-    );
+    return <ResultsView taskId={completedTaskId} scanAgainCallback={scanAgainCallback} />;
   }
 
   return (
     <div className="w-full h-full">
-      {(lastScannedTaskId !== null) &&
+      {lastScannedTaskId !== null && (
         <PrimaryCardLayout className="" fullWidth={true}>
           <div className="w-72">
-            <MenuButton onClick={() => {
-              setCompletedTaskId(lastScannedTaskId);
-              setLastScannedTaskId(null);
-            }}>
+            <MenuButton
+              onClick={() => {
+                setCompletedTaskId(lastScannedTaskId);
+                setLastScannedTaskId(null);
+              }}
+            >
               <MagnifyingGlassIcon />
               View Last Scan Results
             </MenuButton>
           </div>
         </PrimaryCardLayout>
-      }
-      <SettingsView scanType={scanType}
-                    setScanType={setScanType}
-                    courseIds={courseIds}
-                    setCourseIds={setCourseIds}
-                    searchTerms={searchTerms}
-                    setSearchTerms={setSearchTerms}
-                    scannedItems={scannedItems}
-                    setScannedItems={setScannedItems}
-                    settings={settings}
-                    setSettings={setSettings}
-                    runScanCallback={runScanCallback} />
+      )}
+      <SettingsView
+        scanType={scanType}
+        setScanType={setScanType}
+        courseIds={courseIds}
+        setCourseIds={setCourseIds}
+        searchTerms={searchTerms}
+        setSearchTerms={setSearchTerms}
+        scannedItems={scannedItems}
+        setScannedItems={setScannedItems}
+        settings={settings}
+        setSettings={setSettings}
+        runScanCallback={runScanCallback}
+      />
     </div>
   );
 }

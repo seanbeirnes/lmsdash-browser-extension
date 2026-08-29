@@ -9,6 +9,6 @@ export const CourseItemTypes = {
   MODULE_LINK: "module-link",
   PAGE: "page",
   SYLLABUS: "syllabus",
-} as const
+} as const;
 
-export type CourseItemType = typeof CourseItemTypes[keyof typeof CourseItemTypes]
+export type CourseItemType = (typeof CourseItemTypes)[keyof typeof CourseItemTypes];

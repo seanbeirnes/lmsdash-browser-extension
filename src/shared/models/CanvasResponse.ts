@@ -19,7 +19,7 @@ export class CanvasResponse {
     redirected: boolean,
     status: number,
     statusText: string,
-    type: string
+    type: string,
   ) {
     this.id = id;
     this.text = text;

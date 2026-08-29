@@ -18,19 +18,12 @@
   },
   "content_scripts": [
     {
-      "js": [
-        "src/ContentScript/index.js"
-      ],
-      "matches": [
-        "https://*.instructure.com/*"
-      ]
+      "js": ["src/ContentScript/index.js"],
+      "matches": ["https://*.instructure.com/*"]
     }
   ],
   "side_panel": {
     "default_path": "src/SidePanel/index.html"
   },
-  "permissions": [
-    "sidePanel",
-    "tabs"
-  ]
+  "permissions": ["sidePanel", "tabs"]
 }
