@@ -66,6 +66,7 @@ function CourseItemScanResult({
           <a
             href={url}
             target="_blank"
+            rel="noopener"
             className="basis-full text-base text-blue-600 hover:text-blue-500 hover:underline active:text-blue-400"
           >
             {name}

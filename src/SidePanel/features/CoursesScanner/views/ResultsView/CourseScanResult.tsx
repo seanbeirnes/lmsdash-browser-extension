@@ -65,6 +65,7 @@ function CourseScanResult({
             <a
               href={url}
               target="_blank"
+              rel="noopener"
               title="Link to course"
               className="text-blue-600 hover:text-blue-500 hover:underline active:text-blue-400"
             >

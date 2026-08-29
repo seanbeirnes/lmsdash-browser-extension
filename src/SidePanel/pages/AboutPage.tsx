@@ -50,6 +50,7 @@ function AboutPage() {
                   className="text-blue-600 hover:text-blue-500 active:text-blue-400"
                   href={userInfo.lmsInstance}
                   target="_blank"
+                  rel="noopener"
                 >
                   {userInfo.lmsInstance}
                 </a>
@@ -72,6 +73,7 @@ function AboutPage() {
                   className="inline-flex items-center text-blue-600 hover:text-blue-500 active:text-blue-400"
                   href="https://github.com/seanbeirnes"
                   target="_blank"
+                  rel="noopener"
                 >
                   Sean Beirnes&nbsp;
                   <GitHubLogoIcon />

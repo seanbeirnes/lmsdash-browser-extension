@@ -243,7 +243,7 @@ export class MessageHandler {
 
   // Recursively retries sending requests if they failed
   private async trySendingRequests(message: Message, counter = 0): Promise<Message | null> {
-    if (counter > 0) await Utils.sleep(Math.pow(10, counter));
+    if (counter > 0) await Utils.sleep(10 ** counter);
     const tabId = this.appController.tabHandler.getTabId();
 
     if (tabId == null) return null;

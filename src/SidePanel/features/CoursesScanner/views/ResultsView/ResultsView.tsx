@@ -262,6 +262,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
                       <a
                         href={curDetails.url}
                         target="_blank"
+                        rel="noopener"
                         className="text-blue-600 hover:text-blue-500 hover:underline active:text-blue-400"
                       >
                         {curDetails.url}
@@ -269,10 +270,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
                     </p>
                     <p className="text-base text-gray-700">
                       <span className="font-bold">Matches:</span>{" "}
-                      {curDetails.matches
-                        .toString()
-                        .replace(/[\[\]]/g, "")
-                        .replace(/,/g, ", ")}
+                      {curDetails.matches.toString().replace(/[[\]]/g, "").replace(/,/g, ", ")}
                     </p>
                   </div>
                 )}
