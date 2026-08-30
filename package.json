@@ -19,6 +19,7 @@
     "lint": "biome lint .",
     "check": "biome check .",
     "scan:secrets": "scripts/check-secrets.sh",
+    "scan:secrets:all": "scripts/check-secrets.sh --all",
     "validate:build": "node scripts/validate-build.mjs",
     "preview": "vite preview",
     "test": "vitest",

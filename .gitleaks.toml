@@ -1,0 +1,31 @@
+# Gitleaks configuration.
+#
+# This file exists so that a false positive in immutable history can be
+# suppressed without disabling the scan. It inherits every rule from the
+# Gitleaks default configuration, so removing entries below never weakens
+# detection.
+#
+# Prefer, in order:
+#   1. Rotate the credential and remove it from the code.
+#   2. Add an inline `gitleaks:allow` comment on the offending line.
+#   3. Add a narrowly scoped allowlist entry here.
+#
+# Scope allowlist entries as tightly as possible. Prefer `commits` (a specific
+# historical commit) or a fingerprint over broad `paths` or `regexes` globs,
+# which silence future findings as well as the one you meant to ignore.
+
+[extend]
+useDefault = true
+
+# Example: allow a single known-safe finding in one historical commit.
+#
+# [[rules]]
+#   id = "generic-api-key"
+#   [rules.allowlist]
+#     commits = ["<full-commit-sha>"]
+#
+# Example: allow a documented placeholder in a fixture file.
+#
+# [allowlist]
+#   description = "Test fixtures contain non-functional placeholder tokens"
+#   paths = ['''^src/.*\.test\.ts$''']

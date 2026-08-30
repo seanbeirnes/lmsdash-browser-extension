@@ -19,4 +19,35 @@ if [[ ! -x "$gitleaks_path" ]]; then
 	exit 1
 fi
 
-exec "$gitleaks_path" git --redact --no-banner --verbose .
+scan_args=(git --redact --no-banner --verbose .)
+
+# A full scan re-reads every commit, which grows without bound. Default to the
+# commits that are about to be pushed and fall back to full history only when
+# there is no upstream to compare against.
+full_scan="${GITLEAKS_FULL_SCAN:-0}"
+if [[ "${1:-}" == "--all" ]]; then
+	full_scan=1
+fi
+
+if [[ "$full_scan" == "1" ]]; then
+	printf 'Scanning full repository history for secrets.\n'
+	exec "$gitleaks_path" "${scan_args[@]}"
+fi
+
+upstream="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null || true)"
+
+if [[ -z "$upstream" ]]; then
+	printf 'No upstream branch is configured. Scanning full repository history for secrets.\n'
+	exec "$gitleaks_path" "${scan_args[@]}"
+fi
+
+commit_range="${upstream}..HEAD"
+commit_count="$(git rev-list --count "$commit_range" 2>/dev/null || echo 0)"
+
+if [[ "$commit_count" -eq 0 ]]; then
+	printf 'No new commits versus %s. Skipping secret scan.\n' "$upstream"
+	exit 0
+fi
+
+printf 'Scanning %s commit(s) in %s for secrets.\n' "$commit_count" "$commit_range"
+exec "$gitleaks_path" "${scan_args[@]}" --log-opts="$commit_range"
