@@ -49,7 +49,8 @@ function AdjustDatesPage() {
   const temporalAvailable = hasNativeTemporal();
   const effectiveTimeZone = resolveEffectiveCanvasTimeZone(userInfo.timeZone, courseTimeZone);
   const canUseTimeLogic = temporalAvailable && Boolean(effectiveTimeZone);
-  const requiresTimeZoneNotice = Boolean(userInfo.timeZone) && Boolean(courseTimeZone) && userInfo.timeZone !== courseTimeZone;
+  const requiresTimeZoneNotice =
+    Boolean(userInfo.timeZone) && Boolean(courseTimeZone) && userInfo.timeZone !== courseTimeZone;
 
   const selectableAnnouncements = useMemo(() => {
     return announcements.filter((item) => item.delayedPostAt !== null);
@@ -107,13 +108,11 @@ function AdjustDatesPage() {
       throw new Error("Shift days must be a whole number");
     }
 
-    const announcementsMap = new Map<number, AnnouncementDateItem>(
-      announcements.map((item) => [item.id, item])
-    );
+    const announcementsMap = new Map<number, AnnouncementDateItem>(announcements.map((item) => [item.id, item]));
 
     const selectedItems = selectedAnnouncementIds
       .map((id) => announcementsMap.get(id))
-      .filter((item): item is AnnouncementDateItem => Boolean(item && item.delayedPostAt));
+      .filter((item): item is AnnouncementDateItem => Boolean(item?.delayedPostAt));
 
     return selectedItems.map((item) => {
       const oldDateUtc = item.delayedPostAt as string;
@@ -166,11 +165,14 @@ function AdjustDatesPage() {
     setIsApplying(true);
     setStatusMessage(null);
 
-    const requests = previewItems.map((item) => new CanvasRequest(CANVAS_REQUEST_PUT.Announcement, {
-      courseId: data.courseId,
-      announcementId: item.id,
-      delayedPostAt: item.newDateUtc,
-    }));
+    const requests = previewItems.map(
+      (item) =>
+        new CanvasRequest(CANVAS_REQUEST_PUT.Announcement, {
+          courseId: data.courseId,
+          announcementId: item.id,
+          delayedPostAt: item.newDateUtc,
+        }),
+    );
 
     try {
       const requestMessage = new Message(
@@ -178,10 +180,10 @@ function AdjustDatesPage() {
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Canvas.REQUESTS,
         "Adjust announcement dates",
-        requests
+        requests,
       );
 
-      const response = await chrome.runtime.sendMessage(requestMessage) as { data?: CanvasResponseItem[] };
+      const response = (await chrome.runtime.sendMessage(requestMessage)) as { data?: CanvasResponseItem[] };
       const responseItems = response.data ?? [];
 
       if (responseItems.length !== requests.length) {
@@ -228,138 +230,174 @@ function AdjustDatesPage() {
         <div className="self-start w-full p-4 flex justify-center">
           <div className="w-full max-w-5xl grid grid-cols-1 gap-4">
             <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
-            <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-              <h3 className="text-gray-700 text-xl text-center">Adjust Announcement Dates</h3>
-              <p className="text-sm text-gray-700"><span className="font-bold">Active Course:</span> {data?.courseName ?? (courseId ? "Loading..." : "No active course")}</p>
-              <p className="text-sm text-gray-700"><span className="font-bold">Course ID:</span> {courseId ?? "No course tab detected"}</p>
-              <p className="text-sm text-gray-700"><span className="font-bold">Display Timezone:</span> {effectiveTimeZone || "Unavailable"}</p>
-              {requiresTimeZoneNotice && <p className="text-sm text-gray-700"><span className="font-bold">Course Timezone:</span> {courseTimeZone}</p>}
+              <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
+                <h3 className="text-gray-700 text-xl text-center">Adjust Announcement Dates</h3>
+                <p className="text-sm text-gray-700">
+                  <span className="font-bold">Active Course:</span>{" "}
+                  {data?.courseName ?? (courseId ? "Loading..." : "No active course")}
+                </p>
+                <p className="text-sm text-gray-700">
+                  <span className="font-bold">Course ID:</span> {courseId ?? "No course tab detected"}
+                </p>
+                <p className="text-sm text-gray-700">
+                  <span className="font-bold">Display Timezone:</span> {effectiveTimeZone || "Unavailable"}
+                </p>
+                {requiresTimeZoneNotice && (
+                  <p className="text-sm text-gray-700">
+                    <span className="font-bold">Course Timezone:</span> {courseTimeZone}
+                  </p>
+                )}
 
-              {isLoading && <p className="text-sm text-gray-700">Loading announcements...</p>}
+                {isLoading && <p className="text-sm text-gray-700">Loading announcements...</p>}
 
-              {isError && (
-                <p className="text-sm text-red-700">Could not load announcements for the active course.</p>
-              )}
+                {isError && <p className="text-sm text-red-700">Could not load announcements for the active course.</p>}
 
-              {!courseId && (
-                <p className="text-sm text-yellow-700">Open a Canvas course tab first, then reopen this page.</p>
-              )}
+                {!courseId && (
+                  <p className="text-sm text-yellow-700">Open a Canvas course tab first, then reopen this page.</p>
+                )}
 
-              {!temporalAvailable && (
-                <p className="text-sm text-yellow-700">This browser does not support native Temporal yet. Adjust Dates is unavailable.</p>
-              )}
+                {!temporalAvailable && (
+                  <p className="text-sm text-yellow-700">
+                    This browser does not support native Temporal yet. Adjust Dates is unavailable.
+                  </p>
+                )}
 
-              {!isLoading && temporalAvailable && courseId && !effectiveTimeZone && (
-                <p className="text-sm text-yellow-700">Canvas display timezone is unavailable for this course/user. Cannot preview or apply changes.</p>
-              )}
-            </div>
-          </PrimaryCard>
+                {!isLoading && temporalAvailable && courseId && !effectiveTimeZone && (
+                  <p className="text-sm text-yellow-700">
+                    Canvas display timezone is unavailable for this course/user. Cannot preview or apply changes.
+                  </p>
+                )}
+              </div>
+            </PrimaryCard>
 
-          {courseId && (
-            <>
-              <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
-                <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-                  <h3 className="text-gray-700 text-xl text-center">Adjust by Days</h3>
-                  <input
-                    className="w-full px-2 py-1 bg-white text-base text-gray-700 rounded-sm shadow-inner border-2 border-gray-200 outline-blue-500"
-                    type="number"
-                    step={1}
-                    value={shiftDaysInput}
-                    onChange={(event) => {
-                      setShiftDaysInput(event.target.value);
-                      setStatusMessage(null);
-                      setPreviewItems([]);
-                    }}
-                  />
-                  <p className="text-sm text-gray-700">Use negative values to move dates earlier.</p>
-                  {!hasNonZeroShiftDays && (
-                    <p className="text-sm text-gray-700">Enter a non-zero day shift to preview changes.</p>
-                  )}
-                </div>
-              </PrimaryCard>
-
-              <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
-                <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-                  <h3 className="text-gray-700 text-xl text-center">Announcements ({announcements.length})</h3>
-                  <div className="flex items-center justify-center gap-2">
-                    <button className="text-xs text-blue-600 hover:text-blue-400" onClick={handleSelectAll} type="button">Select all scheduled</button>
-                    <button className="text-xs text-gray-500 hover:text-gray-700" onClick={handleClearSelection} type="button">Clear</button>
+            {courseId && (
+              <>
+                <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
+                  <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
+                    <h3 className="text-gray-700 text-xl text-center">Adjust by Days</h3>
+                    <input
+                      className="w-full px-2 py-1 bg-white text-base text-gray-700 rounded-sm shadow-inner border-2 border-gray-200 outline-blue-500"
+                      type="number"
+                      step={1}
+                      value={shiftDaysInput}
+                      onChange={(event) => {
+                        setShiftDaysInput(event.target.value);
+                        setStatusMessage(null);
+                        setPreviewItems([]);
+                      }}
+                    />
+                    <p className="text-sm text-gray-700">Use negative values to move dates earlier.</p>
+                    {!hasNonZeroShiftDays && (
+                      <p className="text-sm text-gray-700">Enter a non-zero day shift to preview changes.</p>
+                    )}
                   </div>
+                </PrimaryCard>
 
-                  {unselectableCount > 0 && (
-                    <p className="text-xs text-gray-500">{unselectableCount} announcement(s) do not have a scheduled posting date and cannot be shifted.</p>
-                  )}
-
-                  <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-sm bg-white">
-                    {announcements.length === 0 && <p className="text-sm p-2">No announcements found.</p>}
-
-                    {announcements.map((item) => {
-                      const isSelectable = item.delayedPostAt !== null;
-                      const checked = selectedAnnouncementIds.includes(item.id);
-
-                      return (
-                        <label key={item.id} className={`flex gap-2 p-2 border-b border-gray-100 ${isSelectable ? "cursor-pointer" : "opacity-60"}`}>
-                          <input
-                            type="checkbox"
-                            checked={checked}
-                            disabled={!isSelectable}
-                            onChange={() => handleToggleAnnouncement(item.id)}
-                          />
-                          <span className="text-sm grow">
-                            <span className="font-medium block">{item.title}</span>
-                            <span className="text-xs text-gray-500">
-                              {item.delayedPostAt ? `Scheduled: ${formatDateForDisplay(item.delayedPostAt)}` : "No scheduled posting date"}
-                            </span>
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-              </PrimaryCard>
-
-              <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
-                <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-                  <h3 className="text-gray-700 text-xl text-center">Review & Apply</h3>
-
-                  {!isInApplyStep && (
-                    <ButtonPrimary onClick={handlePreview} disabled={!canPreview}>Preview Changes</ButtonPrimary>
-                  )}
-
-                  {isInApplyStep && (
-                    <ButtonPrimary onClick={handleApply} disabled={!canApply} isLoading={isApplying}>Apply Changes</ButtonPrimary>
-                  )}
-
-                  {previewItems.length > 0 && (
-                    <div className="w-full p-2 bg-blue-50 rounded-sm border border-blue-100">
-                      <p className="text-sm font-bold text-blue-700 mb-2">Preview ({previewItems.length} update(s))</p>
-                      <div className="text-sm text-blue-700 grid grid-cols-7 gap-2 mb-2">
-                        <span className="col-span-3 text-right font-semibold">Current</span>
-                        <span className="text-center">→</span>
-                        <span className="col-span-3 text-left font-semibold">New</span>
-                      </div>
-                      <div>
-                        {previewItems.map((item) => (
-                          <div key={item.id} className="text-xs text-blue-800 mb-2">
-                            <p className="font-semibold">{item.title}</p>
-                            <div className="grid grid-cols-7 gap-2">
-                              <span className="col-span-3 pl-4">{formatDateForDisplay(item.oldDateUtc)}</span>
-                              <span className="text-center">→</span>
-                              <span className="col-span-3">{formatDateForDisplay(item.newDateUtc)}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
+                  <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
+                    <h3 className="text-gray-700 text-xl text-center">Announcements ({announcements.length})</h3>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        className="text-xs text-blue-600 hover:text-blue-400"
+                        onClick={handleSelectAll}
+                        type="button"
+                      >
+                        Select all scheduled
+                      </button>
+                      <button
+                        className="text-xs text-gray-500 hover:text-gray-700"
+                        onClick={handleClearSelection}
+                        type="button"
+                      >
+                        Clear
+                      </button>
                     </div>
-                  )}
 
-                  {statusMessage && (
-                    <p className="text-sm text-gray-700">{statusMessage}</p>
-                  )}
-                </div>
-              </PrimaryCard>
-            </>
-          )}
+                    {unselectableCount > 0 && (
+                      <p className="text-xs text-gray-500">
+                        {unselectableCount} announcement(s) do not have a scheduled posting date and cannot be shifted.
+                      </p>
+                    )}
+
+                    <div className="max-h-56 overflow-y-auto border border-gray-100 rounded-sm bg-white">
+                      {announcements.length === 0 && <p className="text-sm p-2">No announcements found.</p>}
+
+                      {announcements.map((item) => {
+                        const isSelectable = item.delayedPostAt !== null;
+                        const checked = selectedAnnouncementIds.includes(item.id);
+
+                        return (
+                          <label
+                            key={item.id}
+                            className={`flex gap-2 p-2 border-b border-gray-100 ${isSelectable ? "cursor-pointer" : "opacity-60"}`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              disabled={!isSelectable}
+                              onChange={() => handleToggleAnnouncement(item.id)}
+                            />
+                            <span className="text-sm grow">
+                              <span className="font-medium block">{item.title}</span>
+                              <span className="text-xs text-gray-500">
+                                {item.delayedPostAt
+                                  ? `Scheduled: ${formatDateForDisplay(item.delayedPostAt)}`
+                                  : "No scheduled posting date"}
+                              </span>
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </PrimaryCard>
+
+                <PrimaryCard fixedWidth={false} className="w-full" minHeight={false}>
+                  <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
+                    <h3 className="text-gray-700 text-xl text-center">Review & Apply</h3>
+
+                    {!isInApplyStep && (
+                      <ButtonPrimary onClick={handlePreview} disabled={!canPreview}>
+                        Preview Changes
+                      </ButtonPrimary>
+                    )}
+
+                    {isInApplyStep && (
+                      <ButtonPrimary onClick={handleApply} disabled={!canApply} isLoading={isApplying}>
+                        Apply Changes
+                      </ButtonPrimary>
+                    )}
+
+                    {previewItems.length > 0 && (
+                      <div className="w-full p-2 bg-blue-50 rounded-sm border border-blue-100">
+                        <p className="text-sm font-bold text-blue-700 mb-2">
+                          Preview ({previewItems.length} update(s))
+                        </p>
+                        <div className="text-sm text-blue-700 grid grid-cols-7 gap-2 mb-2">
+                          <span className="col-span-3 text-right font-semibold">Current</span>
+                          <span className="text-center">→</span>
+                          <span className="col-span-3 text-left font-semibold">New</span>
+                        </div>
+                        <div>
+                          {previewItems.map((item) => (
+                            <div key={item.id} className="text-xs text-blue-800 mb-2">
+                              <p className="font-semibold">{item.title}</p>
+                              <div className="grid grid-cols-7 gap-2">
+                                <span className="col-span-3 pl-4">{formatDateForDisplay(item.oldDateUtc)}</span>
+                                <span className="text-center">→</span>
+                                <span className="col-span-3">{formatDateForDisplay(item.newDateUtc)}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {statusMessage && <p className="text-sm text-gray-700">{statusMessage}</p>}
+                  </div>
+                </PrimaryCard>
+              </>
+            )}
           </div>
         </div>
       </Main>

@@ -1,6 +1,6 @@
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
-import { AppStateContext, UserInfoContext, type AppStateValue, type UserInfoValue } from "../App";
+import { UserInfoContext, type UserInfoValue } from "../App";
 import { useContext, useState } from "react";
 import { MagnifyingGlassIcon, CalendarIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import Main from "../components/layout/Main";
@@ -32,7 +32,6 @@ function MenuPage() {
   });
 
   const pageRouterState = useContext(PageRouterContext);
-  const appState = useContext(AppStateContext) as AppStateValue;
   const userInfo = useContext(UserInfoContext) as UserInfoValue;
 
   return (

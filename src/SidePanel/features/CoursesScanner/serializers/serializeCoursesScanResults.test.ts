@@ -79,9 +79,48 @@ describe("serializeCoursesScanResults", () => {
 
     const rows = csv.split("\n").map(parseCsvLine);
     expect(rows).toEqual([
-      ["course_id", "course_name", "course_code", "course_sis_id", "course_published", "course_url", "type", "id", "name", "url", "published", "matches"],
-      ["42", "Course Alpha", "ALPHA-101", "SIS-42", "TRUE", "https://school.instructure.com/courses/42", "assignment", "7", "Essay 1", "https://school.instructure.com/courses/42/assignments/7", "FALSE", "retired faculty name"],
-      ["42", "Course Alpha", "ALPHA-101", "SIS-42", "TRUE", "https://school.instructure.com/courses/42", "page", "9", "Homepage", "https://school.instructure.com/courses/42/pages/homepage", "TRUE", "old phone number"],
+      [
+        "course_id",
+        "course_name",
+        "course_code",
+        "course_sis_id",
+        "course_published",
+        "course_url",
+        "type",
+        "id",
+        "name",
+        "url",
+        "published",
+        "matches",
+      ],
+      [
+        "42",
+        "Course Alpha",
+        "ALPHA-101",
+        "SIS-42",
+        "TRUE",
+        "https://school.instructure.com/courses/42",
+        "assignment",
+        "7",
+        "Essay 1",
+        "https://school.instructure.com/courses/42/assignments/7",
+        "FALSE",
+        "retired faculty name",
+      ],
+      [
+        "42",
+        "Course Alpha",
+        "ALPHA-101",
+        "SIS-42",
+        "TRUE",
+        "https://school.instructure.com/courses/42",
+        "page",
+        "9",
+        "Homepage",
+        "https://school.instructure.com/courses/42/pages/homepage",
+        "TRUE",
+        "old phone number",
+      ],
     ]);
   });
 
@@ -89,7 +128,7 @@ describe("serializeCoursesScanResults", () => {
     const csv = await serializeCoursesScanResults([
       {
         id: 1,
-        name: "Course, \"Quoted\"",
+        name: 'Course, "Quoted"',
         courseCode: "CODE,1",
         sisCourseId: null,
         published: false,
@@ -105,7 +144,7 @@ describe("serializeCoursesScanResults", () => {
             {
               type: CourseItemTypes.PAGE,
               id: 9,
-              name: "Page, \"Home\"",
+              name: 'Page, "Home"',
               url: null,
               published: true,
               matches: ["term,one", 'term "two"'],

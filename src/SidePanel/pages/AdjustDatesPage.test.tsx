@@ -80,33 +80,35 @@ function renderPage() {
           <AdjustDatesPage />
         </UserInfoContext.Provider>
       </AppStateContext.Provider>
-    </PageRouterContext.Provider>
+    </PageRouterContext.Provider>,
   );
 }
 
 describe("AdjustDatesPage", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    mockedUseActiveCourseAnnouncements.mockReturnValue(createAnnouncementsQueryResult({
-      data: {
-        courseId: "51",
-        courseName: "History 101",
-        courseTimeZone: "America/Denver",
-        announcements: [
-          {
-            id: 101,
-            title: "Welcome",
-            delayedPostAt: "2026-03-10T17:00:00Z",
-          },
-          {
-            id: 102,
-            title: "No schedule",
-            delayedPostAt: null,
-          },
-        ],
-      },
-      refetch: vi.fn().mockResolvedValue(undefined),
-    }));
+    mockedUseActiveCourseAnnouncements.mockReturnValue(
+      createAnnouncementsQueryResult({
+        data: {
+          courseId: "51",
+          courseName: "History 101",
+          courseTimeZone: "America/Denver",
+          announcements: [
+            {
+              id: 101,
+              title: "Welcome",
+              delayedPostAt: "2026-03-10T17:00:00Z",
+            },
+            {
+              id: 102,
+              title: "No schedule",
+              delayedPostAt: null,
+            },
+          ],
+        },
+        refetch: vi.fn().mockResolvedValue(undefined),
+      }),
+    );
     vi.mocked(chrome.runtime.sendMessage as unknown as ReturnType<typeof vi.fn>).mockReset();
   });
 
@@ -129,29 +131,33 @@ describe("AdjustDatesPage", () => {
 
   it("sends one announcement update request per preview item with shifted UTC dates", async () => {
     const refetch = vi.fn().mockResolvedValue(undefined);
-    mockedUseActiveCourseAnnouncements.mockReturnValue(createAnnouncementsQueryResult({
-      data: {
-        courseId: "51",
-        courseName: "History 101",
-        courseTimeZone: "America/Denver",
-        announcements: [
-          {
-            id: 101,
-            title: "Welcome",
-            delayedPostAt: "2026-03-10T17:00:00Z",
-          },
-          {
-            id: 103,
-            title: "Reminder",
-            delayedPostAt: "2026-03-11T17:00:00Z",
-          },
-        ],
-      },
-      refetch,
-    }));
-    const sendMessageSpy = vi.mocked(chrome.runtime.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
-      data: [{ status: 200 }, { status: 200 }],
-    });
+    mockedUseActiveCourseAnnouncements.mockReturnValue(
+      createAnnouncementsQueryResult({
+        data: {
+          courseId: "51",
+          courseName: "History 101",
+          courseTimeZone: "America/Denver",
+          announcements: [
+            {
+              id: 101,
+              title: "Welcome",
+              delayedPostAt: "2026-03-10T17:00:00Z",
+            },
+            {
+              id: 103,
+              title: "Reminder",
+              delayedPostAt: "2026-03-11T17:00:00Z",
+            },
+          ],
+        },
+        refetch,
+      }),
+    );
+    const sendMessageSpy = vi
+      .mocked(chrome.runtime.sendMessage as unknown as ReturnType<typeof vi.fn>)
+      .mockResolvedValue({
+        data: [{ status: 200 }, { status: 200 }],
+      });
 
     renderPage();
 
@@ -183,7 +189,7 @@ describe("AdjustDatesPage", () => {
       announcementId: 103,
       delayedPostAt: "2026-03-13T17:00:00Z",
     });
-    expect(await screen.findByText("Successfully updated 2 announcement(s)." )).toBeInTheDocument();
+    expect(await screen.findByText("Successfully updated 2 announcement(s).")).toBeInTheDocument();
     expect(refetch).toHaveBeenCalledTimes(1);
   });
 
@@ -191,26 +197,28 @@ describe("AdjustDatesPage", () => {
     vi.mocked(chrome.runtime.sendMessage as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
       data: [{ status: 200 }, { status: 500 }],
     });
-    mockedUseActiveCourseAnnouncements.mockReturnValue(createAnnouncementsQueryResult({
-      data: {
-        courseId: "51",
-        courseName: "History 101",
-        courseTimeZone: "America/Denver",
-        announcements: [
-          {
-            id: 101,
-            title: "Welcome",
-            delayedPostAt: "2026-03-10T17:00:00Z",
-          },
-          {
-            id: 103,
-            title: "Reminder",
-            delayedPostAt: "2026-03-11T17:00:00Z",
-          },
-        ],
-      },
-      refetch: vi.fn().mockResolvedValue(undefined),
-    }));
+    mockedUseActiveCourseAnnouncements.mockReturnValue(
+      createAnnouncementsQueryResult({
+        data: {
+          courseId: "51",
+          courseName: "History 101",
+          courseTimeZone: "America/Denver",
+          announcements: [
+            {
+              id: 101,
+              title: "Welcome",
+              delayedPostAt: "2026-03-10T17:00:00Z",
+            },
+            {
+              id: 103,
+              title: "Reminder",
+              delayedPostAt: "2026-03-11T17:00:00Z",
+            },
+          ],
+        },
+        refetch: vi.fn().mockResolvedValue(undefined),
+      }),
+    );
 
     renderPage();
 

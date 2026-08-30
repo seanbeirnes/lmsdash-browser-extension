@@ -8,7 +8,7 @@ export default class Logger {
 
   static debug(filePath: string, message: string): void {
     const date = new Date();
-    if (Config && Config.DEBUG_MODE) {
+    if (Config?.DEBUG_MODE) {
       console.log(date.toUTCString() + "      " + filePath + "      " + message);
     }
   }

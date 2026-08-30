@@ -12,8 +12,7 @@ export interface AppControllerLike {
   messageHandler: MessageHandlerLike;
 }
 
-export default class TaskController
-{
+export default class TaskController {
   static CACHED_COUNT_LIMIT = 5;
 
   private appController: AppControllerLike;
@@ -22,8 +21,7 @@ export default class TaskController
   private runningTasks: Task[];
   private finishedTasks: Task[];
 
-  constructor(appController: AppControllerLike)
-  {
+  constructor(appController: AppControllerLike) {
     this.appController = appController;
     this.nextId = 0;
     this.newTasks = [];
@@ -31,8 +29,7 @@ export default class TaskController
     this.finishedTasks = [];
   }
 
-  enqueue(newTask: { type: string; settingsData?: unknown } | Task): Task
-  {
+  enqueue(newTask: { type: string; settingsData?: unknown } | Task): Task {
     const task = new Task(newTask.type, (newTask as Task).settingsData);
     task.setId(this.nextId++);
     this.newTasks.push(task);
@@ -41,16 +38,14 @@ export default class TaskController
   }
 
   // Handle changes in task status and new tasks
-  update(): void
-  {
+  update(): void {
     this.handleFinished();
     this.handleRunning();
     this.handleNew();
   }
 
   // Removes old tasks to prevent memory leaks
-  private handleFinished(): void
-  {
+  private handleFinished(): void {
     // Do not run if below cache limit
     if (this.finishedTasks.length < TaskController.CACHED_COUNT_LIMIT) return;
 
@@ -59,8 +54,7 @@ export default class TaskController
 
     // Updates counts of task types
     function updateCounts(task: Task) {
-      switch (task.type)
-      {
+      switch (task.type) {
         case TaskTypes.coursesScan:
           coursesScanCount++;
           break;
@@ -71,10 +65,8 @@ export default class TaskController
     }
 
     // Returns false if cache rule is met, defaults to true
-    function shouldRemove(task: Task): boolean
-    {
-      switch (task.type)
-      {
+    function shouldRemove(task: Task): boolean {
+      switch (task.type) {
         case TaskTypes.coursesScan:
           if (coursesScanCount < 2) return false;
           break;
@@ -86,13 +78,10 @@ export default class TaskController
     }
 
     // Sort tasks from oldest to newest
-    const tasks = this.finishedTasks.sort(
-      (a, b) => (a.timeFinished ?? 0) - (b.timeFinished ?? 0)
-    );
+    const tasks = this.finishedTasks.sort((a, b) => (a.timeFinished ?? 0) - (b.timeFinished ?? 0));
 
     // Iterate over array of tasks from newest to oldest (backwards loop so tasks can be removed)
-    for (let i = tasks.length - 1; i >= 0; i--)
-    {
+    for (let i = tasks.length - 1; i >= 0; i--) {
       updateCounts(tasks[i]);
       if (shouldRemove(tasks[i])) tasks.splice(i, 1);
     }
@@ -103,10 +92,8 @@ export default class TaskController
   }
 
   // Removes finished tasks from running tasks array
-  private handleRunning(): void
-  {
-    for (let i = this.runningTasks.length - 1; i >= 0; i--)
-    {
+  private handleRunning(): void {
+    for (let i = this.runningTasks.length - 1; i >= 0; i--) {
       // Ignore running tasks
       if (this.runningTasks[i].status === TaskStatuses.RUNNING) continue;
 
@@ -118,11 +105,9 @@ export default class TaskController
   }
 
   // Runs tasks that are not started
-  private handleNew(): void
-  {
+  private handleNew(): void {
     // Count down so tasks added back do not get scanned again this round
-    for (let i = this.newTasks.length - 1; i >= 0; i--)
-    {
+    for (let i = this.newTasks.length - 1; i >= 0; i--) {
       // Run task
       const task = this.newTasks.shift();
       if (!task) continue;
@@ -131,28 +116,23 @@ export default class TaskController
       if (
         this.runningTasks.findIndex((t) => t.type === TaskTypes.coursesScan) >= 0 &&
         task.type === TaskTypes.coursesScan
-      )
-      {
+      ) {
         this.newTasks.push(task);
         continue;
       }
 
       const isRunning = TaskRunner.runTask(task, this.appController);
-      if (isRunning)
-      {
+      if (isRunning) {
         this.runningTasks.push(task);
         Logger.debug(__dirname, "Started task: \n" + task.toString());
-      }
-      else
-      {
+      } else {
         this.finishedTasks.push(task);
         Logger.debug(__dirname, "Failed to start task: \n" + task.toString());
       }
     }
   }
 
-  getTaskById(id: number): Task | null
-  {
+  getTaskById(id: number): Task | null {
     let index = this.newTasks.findIndex((task) => task.id === id);
     if (index !== -1) return this.newTasks[index];
 
@@ -165,8 +145,7 @@ export default class TaskController
     return null;
   }
 
-  getTaskByUuid(uuid: string): Task | null
-  {
+  getTaskByUuid(uuid: string): Task | null {
     let index = this.newTasks.findIndex((task) => task.uuid === uuid);
     if (index !== -1) return this.newTasks[index];
 
@@ -180,22 +159,18 @@ export default class TaskController
   }
 
   // Returns array of tasks of a type
-  getTasksByType(type: string, _includeResults?: boolean): Task[] | null
-  {
+  getTasksByType(type: string, _includeResults?: boolean): Task[] | null {
     const tasks: Task[] = [];
 
-    this.newTasks.forEach((task) =>
-    {
+    this.newTasks.forEach((task) => {
       if (task.type === type) tasks.push(task);
     });
 
-    this.runningTasks.forEach((task) =>
-    {
+    this.runningTasks.forEach((task) => {
       if (task.type === type) tasks.push(task);
     });
 
-    this.finishedTasks.forEach((task) =>
-    {
+    this.finishedTasks.forEach((task) => {
       if (task.type === type) tasks.push(task);
     });
 
@@ -204,13 +179,11 @@ export default class TaskController
     return null;
   }
 
-  stopTask(taskId: number | null): boolean
-  {
+  stopTask(taskId: number | null): boolean {
     if (taskId === null) return false;
 
     const task = this.getTaskById(taskId);
-    if (!task)
-    {
+    if (!task) {
       console.warn("No task for received task id");
       return false;
     }

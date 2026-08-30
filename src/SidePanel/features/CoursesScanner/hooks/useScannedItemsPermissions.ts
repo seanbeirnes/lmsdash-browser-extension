@@ -20,29 +20,47 @@ type RequestResponseItem = {
 };
 
 export default function useScannedItemsPermissions(courseId: number | string | null) {
-  async function fetchPermissions({ queryKey }: { queryKey: [string, { courseId: number | string | null }] }): Promise<Permissions> {
+  async function fetchPermissions({
+    queryKey,
+  }: {
+    queryKey: [string, { courseId: number | string | null }];
+  }): Promise<Permissions> {
     const [_key, { courseId }] = queryKey;
 
     const reqAnnouncements = new CanvasRequest(CanvasRequest.Get.Announcements, { courseId, page: 1, perPage: 10 });
     const reqAssignments = new CanvasRequest(CanvasRequest.Get.Assignments, { courseId, page: 1, perPage: 10 });
     const reqTabs = new CanvasRequest(CanvasRequest.Get.Tabs, { courseId, page: 1, perPage: 10 });
     const reqDiscussions = new CanvasRequest(CanvasRequest.Get.Discussions, { courseId, page: 1, perPage: 10 });
-    const reqFiles = new CanvasRequest(CanvasRequest.Get.CourseFiles, { courseId, onlyNames: true, page: 1, perPage: 10 });
+    const reqFiles = new CanvasRequest(CanvasRequest.Get.CourseFiles, {
+      courseId,
+      onlyNames: true,
+      page: 1,
+      perPage: 10,
+    });
     const reqModules = new CanvasRequest(CanvasRequest.Get.Modules, { courseId, page: 1, perPage: 10 });
     const reqPages = new CanvasRequest(CanvasRequest.Get.Pages, { courseId, includeBody: false, page: 1, perPage: 10 });
     const reqCourse = new CanvasRequest(CanvasRequest.Get.Course, { courseId, syllabusBody: true });
 
-    const canvasRequests = [reqAnnouncements, reqAssignments, reqTabs, reqDiscussions, reqFiles, reqModules, reqPages, reqCourse];
+    const canvasRequests = [
+      reqAnnouncements,
+      reqAssignments,
+      reqTabs,
+      reqDiscussions,
+      reqFiles,
+      reqModules,
+      reqPages,
+      reqCourse,
+    ];
 
     const msgRequest = new Message(
       MESSAGE_TARGET.SERVICE_WORKER,
       MESSAGE_SENDER.SIDE_PANEL,
       MESSAGE_TYPE.Canvas.REQUESTS,
       "Permissions request",
-      canvasRequests
+      canvasRequests,
     );
 
-    const msgResponse = await chrome.runtime.sendMessage(msgRequest) as { data?: RequestResponseItem[] };
+    const msgResponse = (await chrome.runtime.sendMessage(msgRequest)) as { data?: RequestResponseItem[] };
 
     if (!msgResponse.data) {
       throw new Error("Message data is null");
@@ -65,7 +83,7 @@ export default function useScannedItemsPermissions(courseId: number | string | n
     const hasModules = findResponse(reqModules.id).status < 400;
     const hasPages = findResponse(reqPages.id).status < 400;
     const courseResponse = findResponse(reqCourse.id);
-    const courseObj = courseResponse.text ? JSON.parse(courseResponse.text) as Record<string, unknown> : null;
+    const courseObj = courseResponse.text ? (JSON.parse(courseResponse.text) as Record<string, unknown>) : null;
     const hasSyllabus = typeof courseObj?.syllabus_body === "string" && courseObj.syllabus_body !== null;
 
     return {

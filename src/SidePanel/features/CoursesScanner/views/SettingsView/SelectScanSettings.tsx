@@ -26,8 +26,10 @@ function SelectScanSettings({ settings, setSettings, runScanCallback }: SelectSc
     }
   }
 
-  const switchRootClasses = "relative w-8 h-5 bg-gray-200 data-[state='checked']:bg-blue-500 transition shadow-inner rounded-full";
-  const switchThumbClasses = "block w-4 h-4 bg-white shadow-xs transition-all translate-x-0.5 data-[state='checked']:translate-x-[0.85rem] rounded-full";
+  const switchRootClasses =
+    "relative w-8 h-5 bg-gray-200 data-[state='checked']:bg-blue-500 transition shadow-inner rounded-full";
+  const switchThumbClasses =
+    "block w-4 h-4 bg-white shadow-xs transition-all translate-x-0.5 data-[state='checked']:translate-x-[0.85rem] rounded-full";
   const switchLabelClasses = "text-base text-gray-700";
 
   return (
@@ -35,10 +37,12 @@ function SelectScanSettings({ settings, setSettings, runScanCallback }: SelectSc
       <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
         <h3 className="text-gray-700 text-xl text-center">Search Settings</h3>
         <div className="flex items-center gap-2">
-          <Switch.Root id="case-sensitive"
-                       className={switchRootClasses}
-                       checked={settings.indexOf("case-sensitive") >= 0}
-                       onCheckedChange={() => handleSwitchChange("case-sensitive")}>
+          <Switch.Root
+            id="case-sensitive"
+            className={switchRootClasses}
+            checked={settings.indexOf("case-sensitive") >= 0}
+            onCheckedChange={() => handleSwitchChange("case-sensitive")}
+          >
             <Switch.Thumb className={switchThumbClasses} />
           </Switch.Root>
           <label className={switchLabelClasses} htmlFor="case-sensitive">
@@ -46,10 +50,12 @@ function SelectScanSettings({ settings, setSettings, runScanCallback }: SelectSc
           </label>
         </div>
         <div className="flex items-center gap-2">
-          <Switch.Root id="include-html"
-                       className={switchRootClasses}
-                       checked={settings.indexOf("include-html") >= 0}
-                       onCheckedChange={() => handleSwitchChange("include-html")}>
+          <Switch.Root
+            id="include-html"
+            className={switchRootClasses}
+            checked={settings.indexOf("include-html") >= 0}
+            onCheckedChange={() => handleSwitchChange("include-html")}
+          >
             <Switch.Thumb className={switchThumbClasses} />
           </Switch.Root>
           <label className={switchLabelClasses} htmlFor="include-html">
@@ -58,10 +64,12 @@ function SelectScanSettings({ settings, setSettings, runScanCallback }: SelectSc
         </div>
         {appState.isAdmin && (
           <div className="flex items-center gap-2">
-            <Switch.Root id="only-published-items"
-                         className={switchRootClasses}
-                         checked={settings.indexOf("only-published-items") >= 0}
-                         onCheckedChange={() => handleSwitchChange("only-published-items")}>
+            <Switch.Root
+              id="only-published-items"
+              className={switchRootClasses}
+              checked={settings.indexOf("only-published-items") >= 0}
+              onCheckedChange={() => handleSwitchChange("only-published-items")}
+            >
               <Switch.Thumb className={switchThumbClasses} />
             </Switch.Root>
             <label className={switchLabelClasses} htmlFor="only-published-items">

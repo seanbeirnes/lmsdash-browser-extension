@@ -1,4 +1,5 @@
-import Task, { TaskTypes, TaskStatuses } from "../shared/models/Task";
+import type Task from "../shared/models/Task";
+import { TaskTypes, TaskStatuses } from "../shared/models/Task";
 import Logger from "../shared/utils/Logger";
 import CoursesScanController from "./features/CoursesScanner/CoursesScanController";
 import type { CanvasRequest } from "../shared/models/CanvasRequest";
@@ -12,14 +13,11 @@ export interface AppControllerLike {
   messageHandler: MessageHandlerLike;
 }
 
-export default class TaskRunner
-{
-  static runTask(task: Task, appController: AppControllerLike): boolean
-  {
+export default class TaskRunner {
+  static runTask(task: Task, appController: AppControllerLike): boolean {
     let isRunning = false;
 
-    switch (task.type)
-    {
+    switch (task.type) {
       case TaskTypes.coursesScan:
         isRunning = TaskRunner.runCoursesScan(task, appController);
         break;
@@ -30,12 +28,9 @@ export default class TaskRunner
 
     task.setTimeStarted();
 
-    if (isRunning)
-    {
+    if (isRunning) {
       task.setStatus(TaskStatuses.RUNNING);
-    }
-    else
-    {
+    } else {
       task.setStatus(TaskStatuses.FAILED);
       task.setTimeFinished();
     }
@@ -43,8 +38,7 @@ export default class TaskRunner
     return isRunning;
   }
 
-  static runCoursesScan(task: Task, appController: AppControllerLike): boolean
-  {
+  static runCoursesScan(task: Task, appController: AppControllerLike): boolean {
     const controller = new CoursesScanController(task, appController);
     task.controller = controller;
     controller.start();

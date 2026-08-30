@@ -28,7 +28,7 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
   const taskData = data as ProgressTask | undefined;
 
   useEffect(() => {
-    if (!taskData || !taskData.status) return;
+    if (!taskData?.status) return;
     if (taskData.status === TaskStatuses.COMPLETE) viewResultsCallback();
     if (taskData.status === TaskStatuses.FAILED && !stoppingScan) setScanError(true);
   }, [taskData, viewResultsCallback, stoppingScan]);
@@ -39,26 +39,36 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
   }
 
   if (scanError) {
-    return (
-      <GenericErrorMessage />
-    );
+    return <GenericErrorMessage />;
   }
 
-  if (isProgress || !taskData || !taskData.progressData || taskData.progressData.length === 0 || taskData.progressData[0] === "Gathering courses...") {
+  if (
+    isProgress ||
+    !taskData ||
+    !taskData.progressData ||
+    taskData.progressData.length === 0 ||
+    taskData.progressData[0] === "Gathering courses..."
+  ) {
     return (
       <PrimaryCardLayout className="" fullWidth={true}>
         <PrimaryCard fixedWidth={false} minHeight={false} className="w-full min-h-52">
           <div className="self-stretch grid grid-cols-1 grid-flow-row justify-start content-start gap-2">
-            <h2
-              className="text-gray-700 text-xl text-center font-bold">{(taskData && taskData.progressData && taskData.progressData.length > 0) ? taskData.progressData[0] : "Fetching data..."}</h2>
+            <h2 className="text-gray-700 text-xl text-center font-bold">
+              {taskData?.progressData && taskData.progressData.length > 0
+                ? taskData.progressData[0]
+                : "Fetching data..."}
+            </h2>
           </div>
           <div className="flex justify-center">
             <ProgressSpinner className="" />
           </div>
           <div className="justify-self-center self-end w-full max-w-sm">
-            <ButtonPrimaryDanger onClick={stopScanCallback}
-                                 disabled={taskData && taskData.status ? taskData.status !== TaskStatuses.RUNNING : false}>Stop
-              Scan</ButtonPrimaryDanger>
+            <ButtonPrimaryDanger
+              onClick={stopScanCallback}
+              disabled={taskData?.status ? taskData.status !== TaskStatuses.RUNNING : false}
+            >
+              Stop Scan
+            </ButtonPrimaryDanger>
           </div>
         </PrimaryCard>
       </PrimaryCardLayout>
@@ -69,22 +79,33 @@ function ProgressView({ taskId, viewResultsCallback, stopScanCallback }: Progres
     <PrimaryCardLayout className="" fullWidth={true}>
       <PrimaryCard fixedWidth={false} minHeight={false} className="w-full min-h-52">
         <div className="grid grid-cols-1 grid-flow-row start justify-start content-start gap-2">
-          <h2
-            className="text-gray-700 text-xl text-center font-bold">{taskData.progressData.length > 0 ? taskData.progressData[0] : " "}</h2>
-          <Progress.Root className="relative overflow-hidden bg-gray-200 rounded-full w-full h-6 shadow-inner"
-                         style={{ transform: "translateZ(0)" }}
-                         value={taskData.progress ? taskData.progress : 0}>
-            <Progress.Indicator className="bg-blue-400 w-full h-full transition-transform duration-500 ease-in-out"
-                                style={{ transform: `translateX(-${100 - (taskData.progress ? taskData.progress : 0)}%)` }} />
-            <span
-              className="absolute top-0 w-full h-full text-center text-gray-700">{taskData.progress ? taskData.progress : 0}%</span>
+          <h2 className="text-gray-700 text-xl text-center font-bold">
+            {taskData.progressData.length > 0 ? taskData.progressData[0] : " "}
+          </h2>
+          <Progress.Root
+            className="relative overflow-hidden bg-gray-200 rounded-full w-full h-6 shadow-inner"
+            style={{ transform: "translateZ(0)" }}
+            value={taskData.progress ? taskData.progress : 0}
+          >
+            <Progress.Indicator
+              className="bg-blue-400 w-full h-full transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${100 - (taskData.progress ? taskData.progress : 0)}%)` }}
+            />
+            <span className="absolute top-0 w-full h-full text-center text-gray-700">
+              {taskData.progress ? taskData.progress : 0}%
+            </span>
           </Progress.Root>
-          <p
-            className="text-gray-700 text-base text-left">{(taskData.progressData && taskData.progressData.length > 1) ? taskData.progressData[1] : " "}</p>
+          <p className="text-gray-700 text-base text-left">
+            {taskData.progressData && taskData.progressData.length > 1 ? taskData.progressData[1] : " "}
+          </p>
         </div>
         <div className="justify-self-center self-end w-full max-w-sm">
-          <ButtonPrimaryDanger onClick={handleStopScanClick} disabled={taskData && taskData.status !== TaskStatuses.RUNNING}>Stop
-            Scan</ButtonPrimaryDanger>
+          <ButtonPrimaryDanger
+            onClick={handleStopScanClick}
+            disabled={taskData && taskData.status !== TaskStatuses.RUNNING}
+          >
+            Stop Scan
+          </ButtonPrimaryDanger>
         </div>
       </PrimaryCard>
     </PrimaryCardLayout>

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -e
+
+npm run check
+scripts/check-secrets.sh --pre-push

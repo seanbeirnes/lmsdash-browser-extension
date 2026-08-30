@@ -1,1 +1,1 @@
-export * from "./router-page"
+export * from "./router-page";

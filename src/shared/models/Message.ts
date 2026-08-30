@@ -70,7 +70,7 @@ export class Message {
     type: MessageType,
     text: string = "",
     data: any = {},
-    time: number = Date.now()
+    time: number = Date.now(),
   ) {
     this.target = target;
     this.sender = sender;

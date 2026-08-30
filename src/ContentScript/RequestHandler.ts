@@ -1,5 +1,5 @@
 import { CanvasAPIClient } from "./CanvasAPIClient";
-import { CanvasRequest, CanvasRequestType } from "../shared/models/CanvasRequest";
+import { CanvasRequest, type CanvasRequestType } from "../shared/models/CanvasRequest";
 import { CanvasResponse } from "../shared/models/CanvasResponse";
 
 export interface CanvasRequestParams {
@@ -36,7 +36,9 @@ export class RequestHandler {
   }
 
   enqueueList(requests: CanvasRequestLike[]): void {
-    requests.forEach((req) => this.enqueue(req));
+    requests.forEach((req) => {
+      this.enqueue(req);
+    });
   }
 
   // Returns a dictionary key/value pair of the link header if it is not null
@@ -45,7 +47,7 @@ export class RequestHandler {
       return null;
     }
 
-    const links: Record<string,string> = {};
+    const links: Record<string, string> = {};
     const list = linkHeader.split(",");
 
     list.forEach((link) => {
@@ -68,17 +70,25 @@ export class RequestHandler {
 
     switch (request.type) {
       case CanvasRequest.Get.Announcements:
-        response = await this.client.Get.Announcements(request.params.courseId!, request.params.page, request.params.perPage);
+        response = await this.client.Get.Announcements(
+          request.params.courseId!,
+          request.params.page,
+          request.params.perPage,
+        );
         break;
 
       case CanvasRequest.Get.Assignments:
-        response = await this.client.Get.Assignments(request.params.courseId!, request.params.page, request.params.perPage);
+        response = await this.client.Get.Assignments(
+          request.params.courseId!,
+          request.params.page,
+          request.params.perPage,
+        );
         break;
 
       case CanvasRequest.Get.Course:
         response = await this.client.Get.Course(
           request.params.courseId!,
-          request.params.syllabusBody ? request.params.syllabusBody : false
+          request.params.syllabusBody ? request.params.syllabusBody : false,
         );
         break;
 
@@ -87,7 +97,7 @@ export class RequestHandler {
           request.params.courseId!,
           typeof request.params.onlyNames === "boolean" ? request.params.onlyNames : true,
           request.params.page,
-          request.params.perPage
+          request.params.perPage,
         );
         break;
 
@@ -99,7 +109,7 @@ export class RequestHandler {
         response = await this.client.Get.CoursesByAdminSearch(
           request.params.searchTerm ?? "",
           request.params.page,
-          request.params.perPage
+          request.params.perPage,
         );
         break;
 
@@ -107,7 +117,7 @@ export class RequestHandler {
         response = await this.client.Get.CoursesByTermId(
           request.params.termId!,
           request.params.page,
-          request.params.perPage
+          request.params.perPage,
         );
         break;
 
@@ -116,7 +126,11 @@ export class RequestHandler {
         break;
 
       case CanvasRequest.Get.Discussions:
-        response = await this.client.Get.Discussions(request.params.courseId!, request.params.page, request.params.perPage);
+        response = await this.client.Get.Discussions(
+          request.params.courseId!,
+          request.params.page,
+          request.params.perPage,
+        );
         break;
 
       case CanvasRequest.Get.Modules:
@@ -124,7 +138,11 @@ export class RequestHandler {
         break;
 
       case CanvasRequest.Get.ModuleItems:
-        response = await this.client.Get.ModuleItems(request.params.courseId!, request.params.moduleId!, request.params.page);
+        response = await this.client.Get.ModuleItems(
+          request.params.courseId!,
+          request.params.moduleId!,
+          request.params.page,
+        );
         break;
 
       case CanvasRequest.Get.Pages:
@@ -132,7 +150,7 @@ export class RequestHandler {
           request.params.courseId!,
           request.params.includeBody ? request.params.includeBody : false,
           request.params.page,
-          request.params.perPage
+          request.params.perPage,
         );
         break;
 
@@ -140,7 +158,7 @@ export class RequestHandler {
         response = await this.client.Get.Tabs(
           request.params.courseId!,
           request.params.page,
-          request.params.perPage ? request.params.perPage : 10
+          request.params.perPage ? request.params.perPage : 10,
         );
         break;
 
@@ -148,7 +166,7 @@ export class RequestHandler {
         response = await this.client.Get.TermsBySearch(
           request.params.searchTerm ?? "",
           request.params.page,
-          request.params.perPage
+          request.params.perPage,
         );
         break;
 
@@ -160,7 +178,7 @@ export class RequestHandler {
         response = await this.client.Put.Announcement(
           request.params.courseId!,
           request.params.announcementId!,
-          request.params.delayedPostAt!
+          request.params.delayedPostAt!,
         );
         break;
 
@@ -183,7 +201,7 @@ export class RequestHandler {
       response.redirected,
       response.status,
       response.statusText,
-      response.type
+      response.type,
     );
   }
 

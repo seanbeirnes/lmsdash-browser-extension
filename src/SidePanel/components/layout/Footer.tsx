@@ -31,13 +31,15 @@ function Footer() {
   }
 
   return (
-    <div className={`w-screen h-9 pl-4 pr-6 py-4 fixed bottom-0 flex flex-row items-center ${!appState.isOnline || !appState.hasTabs ? "justify-center" : "justify-between"} text-sm ${getColor()}`}>
-      {(appState.isOnline && appState.hasTabs) &&
+    <div
+      className={`w-screen h-9 pl-4 pr-6 py-4 fixed bottom-0 flex flex-row items-center ${!appState.isOnline || !appState.hasTabs ? "justify-center" : "justify-between"} text-sm ${getColor()}`}
+    >
+      {appState.isOnline && appState.hasTabs && (
         <>
           <p className="hidden sm:block">{userInfo.fullName}</p>
           <p>{userInfo.lmsInstance}</p>
         </>
-      }
+      )}
       <p>{getText()}</p>
     </div>
   );

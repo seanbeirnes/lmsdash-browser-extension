@@ -9,4 +9,4 @@ export const ROUTER_PAGES = {
   EXTERNAL_TOOLS: "external_tools",
 } as const;
 
-export type RouterPage = typeof ROUTER_PAGES[keyof typeof ROUTER_PAGES];
+export type RouterPage = (typeof ROUTER_PAGES)[keyof typeof ROUTER_PAGES];

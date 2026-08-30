@@ -1,14 +1,16 @@
 import { CourseItemTypes, type CourseItemType } from "../../../../shared/models/CourseItem";
 import type CourseItemScanResult from "../../../../shared/models/CourseItemScanResult";
 
-type ItemLike = CourseItemScanResult | {
-  type: CourseItemType;
-  id: number | string;
-  name: string;
-  url?: string | null;
-  published: boolean;
-  matches: string[];
-};
+type ItemLike =
+  | CourseItemScanResult
+  | {
+      type: CourseItemType;
+      id: number | string;
+      name: string;
+      url?: string | null;
+      published: boolean;
+      matches: string[];
+    };
 
 interface SerializableCourse {
   id: number | string | null;
@@ -29,9 +31,7 @@ interface SerializableCourse {
   };
 }
 
-export default async function serializeCoursesScanResults(
-  scanResults: SerializableCourse[]
-): Promise<string> {
+export default async function serializeCoursesScanResults(scanResults: SerializableCourse[]): Promise<string> {
   const headerRow = [
     "course_id",
     "course_name",
@@ -44,7 +44,7 @@ export default async function serializeCoursesScanResults(
     "name",
     "url",
     "published",
-    "matches"
+    "matches",
   ];
 
   const rows: string[] = [];

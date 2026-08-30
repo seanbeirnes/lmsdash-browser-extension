@@ -12,18 +12,11 @@ function LoadingPage() {
   const appState = useContext(AppStateContext) as AppStateValue;
   const userInfo = useContext(UserInfoContext) as UserInfoValue;
 
-  function isLoading(): boolean {
-    if (appState.timeUpdated === 0) return true;
-    if (!appState.isOnline) return true;
-    if (!appState.hasTabs) return true;
-    if (!userInfo.fullName) return true;
-
-    return false;
-  }
-
   useEffect(() => {
-    if (!isLoading()) pageRouterState.setPage(ROUTER_PAGES.MENU);
-  }, [appState, userInfo]);
+    if (appState.timeUpdated === 0 || !appState.isOnline || !appState.hasTabs || !userInfo.fullName) return;
+
+    pageRouterState.setPage(ROUTER_PAGES.MENU);
+  }, [appState, pageRouterState.setPage, userInfo]);
 
   return (
     <>

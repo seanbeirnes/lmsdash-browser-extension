@@ -12,7 +12,7 @@ function clsx(...classes: Array<string | false | null | undefined>) {
 
 const ButtonPrimary = forwardRef<HTMLButtonElement, ButtonPrimaryProps>(function ButtonPrimary(
   { children, disabled = false, isLoading = false, className, type = "button", ...rest },
-  ref
+  ref,
 ) {
   return (
     <button
@@ -23,7 +23,7 @@ const ButtonPrimary = forwardRef<HTMLButtonElement, ButtonPrimaryProps>(function
         disabled || isLoading
           ? "bg-gray-200 text-gray-700 cursor-not-allowed"
           : "bg-blue-500 text-white hover:bg-blue-400 hover:shadow-sm active:shadow-inner",
-        className
+        className,
       )}
       disabled={disabled || isLoading}
       aria-disabled={disabled || isLoading}

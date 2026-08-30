@@ -46,18 +46,17 @@ function SettingsView({
     let errorMessage = "";
 
     if (scannedItems.length < 1) errorMessage = "Please select at least one item type to scan.";
-    if (searchTerms.length === 0 || searchTerms[0].trim().length === 0) errorMessage = "Please add at least one search term for scanning.";
+    if (searchTerms.length === 0 || searchTerms[0].trim().length === 0)
+      errorMessage = "Please add at least one search term for scanning.";
     if (scanType[0] === "single-course" && courseIds.length !== 1) errorMessage = "Please select a course.";
     if (scanType[0] === "term" && scanType.length < 2) errorMessage = "Please select a term.";
     if (scanType.length === 0) errorMessage = "Error: No scan type selected.";
 
     if (errorMessage) {
-      setSettingsViewModalOptions(
-        {
-          title: SETTINGS_VIEW_MODAL_TITLES.startScanError,
-          text: errorMessage,
-        }
-      );
+      setSettingsViewModalOptions({
+        title: SETTINGS_VIEW_MODAL_TITLES.startScanError,
+        text: errorMessage,
+      });
       return false;
     }
 
@@ -78,17 +77,19 @@ function SettingsView({
         <SelectScannedItems scannedItems={scannedItems} setScannedItems={setScannedItems} scanType={scanType} />
         <SelectScanSettings settings={settings} setSettings={setSettings} runScanCallback={handleRunScan} />
       </PrimaryCardLayout>
-      <AlertModal open={settingsViewModalOptions.text.length > 0}
-                  defaultOpen={false}
-                  title={settingsViewModalOptions.title}
-                  actionText="OK"
-                  cancelText=""
-                  actionCallback={() => setSettingsViewModalOptions(
-                    {
-                      title: "",
-                      text: "",
-                    }
-                  )}>
+      <AlertModal
+        open={settingsViewModalOptions.text.length > 0}
+        defaultOpen={false}
+        title={settingsViewModalOptions.title}
+        actionText="OK"
+        cancelText=""
+        actionCallback={() =>
+          setSettingsViewModalOptions({
+            title: "",
+            text: "",
+          })
+        }
+      >
         {settingsViewModalOptions.text}
       </AlertModal>
     </>

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import TaskController from "./TaskController";
 import TaskRunner from "./TaskRunner";
-import Task, { TaskStatuses, TaskTypes } from "../shared/models/Task";
+import { TaskStatuses, TaskTypes } from "../shared/models/Task";
 
 describe("TaskController", () => {
   beforeEach(() => {

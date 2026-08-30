@@ -1,128 +1,133 @@
 export const TaskTypes = {
-    coursesScan: "courses-scan",
-  } as const
+  coursesScan: "courses-scan",
+} as const;
 
 export const TaskStatuses = {
-    NOT_STARTED: "not-started",
-    RUNNING: "running",
-    PAUSED: "paused",
-    COMPLETE: "complete",
-    FAILED: "failed",
-  } as const
+  NOT_STARTED: "not-started",
+  RUNNING: "running",
+  PAUSED: "paused",
+  COMPLETE: "complete",
+  FAILED: "failed",
+} as const;
 
-export type TaskType = typeof TaskTypes[keyof typeof TaskTypes]
-export type TaskStatus = typeof TaskStatuses[keyof typeof TaskStatuses]
+export type TaskType = (typeof TaskTypes)[keyof typeof TaskTypes];
+export type TaskStatus = (typeof TaskStatuses)[keyof typeof TaskStatuses];
 
 export default class Task {
-  id: number
-  uuid: string
-  type: string
-  status: TaskStatus
-  timeCreated: number
-  timeStarted: number | null
-  timeUpdated: number
-  timeFinished: number | null
-  progress: number
-  progressData: unknown
-  errorsData: unknown
-  settingsData: unknown
-  resultsData: unknown
-  controller: unknown | null
+  id: number;
+  uuid: string;
+  type: string;
+  status: TaskStatus;
+  timeCreated: number;
+  timeStarted: number | null;
+  timeUpdated: number;
+  timeFinished: number | null;
+  progress: number;
+  progressData: unknown;
+  errorsData: unknown;
+  settingsData: unknown;
+  resultsData: unknown;
+  controller: unknown | null;
 
   constructor(type: string, settingsData: unknown = null) {
-    this.id = -1
-    this.uuid = crypto.randomUUID()
-    this.type = type
-    this.status = TaskStatuses.NOT_STARTED
-    this.timeCreated = Date.now()
-    this.timeStarted = null
-    this.timeUpdated = Date.now()
-    this.timeFinished = null
-    this.progress = 0
-    this.progressData = null
-    this.errorsData = null
-    this.settingsData = settingsData
-    this.resultsData = null
-    this.controller = null
+    this.id = -1;
+    this.uuid = crypto.randomUUID();
+    this.type = type;
+    this.status = TaskStatuses.NOT_STARTED;
+    this.timeCreated = Date.now();
+    this.timeStarted = null;
+    this.timeUpdated = Date.now();
+    this.timeFinished = null;
+    this.progress = 0;
+    this.progressData = null;
+    this.errorsData = null;
+    this.settingsData = settingsData;
+    this.resultsData = null;
+    this.controller = null;
   }
 
   private updateTime(): void {
-    this.timeUpdated = Date.now()
+    this.timeUpdated = Date.now();
   }
 
   getId(): number {
-    return this.id
+    return this.id;
   }
 
   setId(id: number): void {
-    this.id = id
+    this.id = id;
   }
 
   getUuid(): string {
-    return this.uuid
+    return this.uuid;
   }
 
   getStatus(): TaskStatus {
-    return this.status
+    return this.status;
   }
 
   setStatus(status: TaskStatus): void {
-    this.status = status
-    this.updateTime()
+    this.status = status;
+    this.updateTime();
   }
 
   getTimes(): { created: number; started: number | null; updated: number; finished: number | null } {
-    return { created: this.timeCreated, started: this.timeStarted, updated: this.timeUpdated, finished: this.timeFinished }
+    return {
+      created: this.timeCreated,
+      started: this.timeStarted,
+      updated: this.timeUpdated,
+      finished: this.timeFinished,
+    };
   }
 
   setTimeStarted(): void {
-    this.timeStarted = Date.now()
-    this.updateTime()
+    this.timeStarted = Date.now();
+    this.updateTime();
   }
 
   setTimeFinished(): void {
-    this.timeFinished = Date.now()
-    this.updateTime()
+    this.timeFinished = Date.now();
+    this.updateTime();
   }
 
   getProgress(): number {
-    return this.progress
+    return this.progress;
   }
 
   setProgress(progress: number): void {
-    this.progress = progress
-    this.updateTime()
+    this.progress = progress;
+    this.updateTime();
   }
 
   getProgressData(): unknown {
-    return this.progressData
+    return this.progressData;
   }
 
   setProgressData(data: unknown): void {
-    this.progressData = data
-    this.updateTime()
+    this.progressData = data;
+    this.updateTime();
   }
 
   getErrorsData(): unknown {
-    return this.errorsData
+    return this.errorsData;
   }
 
   setErrorsData(data: unknown): void {
-    this.errorsData = data
-    this.updateTime()
+    this.errorsData = data;
+    this.updateTime();
   }
 
   getSettingsData(): unknown {
-    return this.settingsData
+    return this.settingsData;
   }
 
   getResultsData(): unknown {
-    return this.resultsData
+    return this.resultsData;
   }
 
   setResultsData(data: unknown): void {
-    this.resultsData = data
-    this.updateTime()
+    this.resultsData = data;
+    this.updateTime();
   }
 
   toString(): string {
@@ -140,6 +145,6 @@ export default class Task {
       `Errors Data: ${JSON.stringify(this.errorsData)}\n` +
       `Settings Data: ${JSON.stringify(this.settingsData)}\n` +
       `Results Data: ${JSON.stringify(this.resultsData)}`
-    )
+    );
   }
 }

@@ -52,7 +52,7 @@ export class CanvasRequest {
     type: CanvasRequestType,
     params: Record<string, any> = {},
     id: string = crypto.randomUUID(),
-    created: number = Date.now()
+    created: number = Date.now(),
   ) {
     this.created = created;
     this.started = null;
@@ -80,12 +80,14 @@ export class CanvasRequest {
   }
 
   start(): number {
-    return (this.started = Date.now());
+    this.started = Date.now();
+    return this.started;
   }
 
   finish(): number | null {
     if (this.started !== null) {
-      return (this.finished = Date.now());
+      this.finished = Date.now();
+      return this.finished;
     }
 
     return null;

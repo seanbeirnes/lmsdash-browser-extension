@@ -32,7 +32,7 @@ function getTemporal(): TemporalGlobalLike | null {
 
 export function hasNativeTemporal(): boolean {
   const temporal = getTemporal();
-  return Boolean(temporal && temporal.Instant);
+  return Boolean(temporal?.Instant);
 }
 
 function normalizeTimeZone(value: string | null | undefined): string {
@@ -61,7 +61,10 @@ export function isValidTimeZone(timeZone: string | null | undefined): boolean {
   }
 }
 
-export function resolveEffectiveCanvasTimeZone(userTimeZone: string | null | undefined, courseTimeZone: string | null | undefined): string {
+export function resolveEffectiveCanvasTimeZone(
+  userTimeZone: string | null | undefined,
+  courseTimeZone: string | null | undefined,
+): string {
   const normalizedUserTimeZone = normalizeTimeZone(userTimeZone);
   if (isValidTimeZone(normalizedUserTimeZone)) {
     return normalizedUserTimeZone;

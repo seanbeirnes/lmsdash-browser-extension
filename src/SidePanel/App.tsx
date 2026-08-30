@@ -112,10 +112,10 @@ function App() {
         MESSAGE_TARGET.SERVICE_WORKER,
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.App.SET_PANEL_OPENED,
-        "SidePanel was opened"
+        "SidePanel was opened",
       );
 
-      const response = await chrome.runtime.sendMessage(request) as Message;
+      const response = (await chrome.runtime.sendMessage(request)) as Message;
       handleMessage(response);
     };
 
@@ -126,10 +126,10 @@ function App() {
         MESSAGE_TARGET.SERVICE_WORKER,
         MESSAGE_SENDER.SIDE_PANEL,
         MESSAGE_TYPE.Task.Request.Info.USER,
-        "User info request"
+        "User info request",
       );
 
-      const response = await chrome.runtime.sendMessage(request) as { data: Array<{ text: string }> | null };
+      const response = (await chrome.runtime.sendMessage(request)) as { data: Array<{ text: string }> | null };
 
       if (response.data === null) return;
 
@@ -161,10 +161,7 @@ function App() {
     notifyIsOpened();
     requestUserInfo();
 
-    const messageListener = new MessageListener(
-      MESSAGE_TARGET.SIDE_PANEL,
-      handleMessage
-    );
+    const messageListener = new MessageListener(MESSAGE_TARGET.SIDE_PANEL, handleMessage);
 
     messageListener.listen();
 
