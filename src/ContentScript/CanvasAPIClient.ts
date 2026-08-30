@@ -106,7 +106,7 @@ class GetRequests {
     );
   }
 
-  static async TermsBySearch(searchTerm: string, page: number = 1, perPage: number = 10): Promise<Response> {
+  static async TermsBySearch(searchTerm: string, page: number = 1, perPage: number = 100): Promise<Response> {
     return await HTTPClient.get(
       CanvasAPIClient.formatURL(`/accounts/1/terms?term_name=${searchTerm}&page=${page}&per_page=${perPage}`),
     );
