@@ -2,6 +2,9 @@ import { CanvasAPIClient } from "./CanvasAPIClient";
 import { CanvasRequest, type CanvasRequestType } from "../shared/models/CanvasRequest";
 import { CanvasResponse } from "../shared/models/CanvasResponse";
 
+// RFC 8288 tolerant: optional whitespace around ";" and optionally quoted rel values
+const LINK_PATTERN = /^\s*<([^>]+)>\s*;\s*rel="?([^";\s]+)"?\s*$/;
+
 export interface CanvasRequestParams {
   courseId?: number | string;
   page?: number;
@@ -48,12 +51,11 @@ export class RequestHandler {
     }
 
     const links: Record<string, string> = {};
-    const list = linkHeader.split(",");
+    const list = linkHeader.split(",").map((link) => link.trim());
 
     list.forEach((link) => {
-      const LINK_PATTERN = /^<([\\w\\/\\.&%?:\\-\\[\\]=]+)>;\\srel="(\\w+)"$/;
       const matches = link.match(LINK_PATTERN);
-      if (matches && matches.length === 3) {
+      if (matches && matches.length === 3 && !(matches[2] in links)) {
         links[matches[2]] = matches[1];
       }
     });
