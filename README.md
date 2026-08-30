@@ -108,10 +108,10 @@ npm run validate:build
 npm run scan:secrets
 ```
 
-`npm run scan:secrets` scans only the commits that are not yet on the upstream
-branch, which is what the pre-push hook needs. When there is no upstream to
-compare against it falls back to scanning the full history. To force a full
-history scan:
+`npm run scan:secrets` scans only the commits on `HEAD` that are not yet on any
+remote. The pre-push hook runs the same script with `--pre-push`, which scans
+exactly the refs Git is about to push. When no remote is configured it falls
+back to scanning the full history. To force a full history scan:
 
 ```shell
 npm run scan:secrets:all

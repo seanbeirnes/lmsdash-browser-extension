@@ -3,4 +3,4 @@
 set -e
 
 npm run check
-npm run scan:secrets
+scripts/check-secrets.sh --pre-push
