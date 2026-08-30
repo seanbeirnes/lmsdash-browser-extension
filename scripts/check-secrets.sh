@@ -6,7 +6,11 @@ setup_command='git config --local gitleaks.path /path/to/gitleaks'
 gitleaks_path="$(git config --local --get gitleaks.path || true)"
 
 if [[ -z "$gitleaks_path" ]]; then
-	printf 'Gitleaks path is not configured. Set it with:\n  %s\n' "$setup_command" >&2
+	gitleaks_path="$(command -v gitleaks || true)"
+fi
+
+if [[ -z "$gitleaks_path" ]]; then
+	printf 'Gitleaks was not found. Enter the Nix development shell, install Gitleaks, or configure it with:\n  %s\n' "$setup_command" >&2
 	exit 1
 fi
 

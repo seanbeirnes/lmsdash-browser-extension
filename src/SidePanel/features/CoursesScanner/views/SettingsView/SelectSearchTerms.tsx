@@ -1,6 +1,7 @@
 import ButtonPrimary from "../../../../components/shared/buttons/ButtonPrimary";
 import PrimaryCard from "../../../../components/shared/cards/PrimaryCard";
 import SearchTermInput from "./SearchTermInput";
+import { useRef } from "react";
 
 interface SelectSearchTermsProps {
   searchTerms: string[];
@@ -8,6 +9,15 @@ interface SelectSearchTermsProps {
 }
 
 function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsProps) {
+  const termIds = useRef<string[]>([]);
+
+  while (termIds.current.length < searchTerms.length) {
+    termIds.current.push(crypto.randomUUID());
+  }
+  if (termIds.current.length > searchTerms.length) {
+    termIds.current.length = searchTerms.length;
+  }
+
   function canAddTerm(): boolean {
     if (searchTerms[0].length < 2) return false;
     if (searchTerms.length > 9) return false;
@@ -29,7 +39,14 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
   }
 
   function removeSearchTerm(index: number): void {
+    termIds.current.splice(index, 1);
     setSearchTerms(searchTerms.filter((_term, itemIndex) => itemIndex !== index));
+  }
+
+  function addSearchTerm(): void {
+    if (!canAddTerm()) return;
+    termIds.current.push(crypto.randomUUID());
+    setSearchTerms([...searchTerms, ""]);
   }
 
   return (
@@ -44,7 +61,7 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
                 value={term}
                 updateSearchTerm={updateSearchTerm}
                 removeSearchTerm={removeSearchTerm}
-                key={term}
+                key={termIds.current[index]}
                 deleteDisabled={searchTerms.length < 2}
               />
             );
@@ -52,12 +69,7 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
         </div>
       </div>
       <div className="self-end mt-2">
-        <ButtonPrimary
-          onClick={() => {
-            if (canAddTerm()) setSearchTerms([...searchTerms, ""]);
-          }}
-          disabled={!canAddTerm()}
-        >
+        <ButtonPrimary onClick={addSearchTerm} disabled={!canAddTerm()}>
           <span>+</span>
         </ButtonPrimary>
       </div>

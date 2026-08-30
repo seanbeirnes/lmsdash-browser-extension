@@ -46,9 +46,10 @@ Some code is shared among all three parts, and these are in the **shared** direc
 [Vite](https://github.com/vitejs/vite)
 
 ### Local Set Up
-The development tooling requires Node.js 24 or newer and Gitleaks. Install Gitleaks
-using the instructions for your operating system, then configure the executable for
-this repository:
+The development tooling requires Node.js 24 or newer and Gitleaks. The Nix development
+shell provides both tools. If you are not using Nix, install Gitleaks using the
+instructions for your operating system and make sure it is available on your `PATH`.
+You can alternatively configure an explicit executable path for this repository:
 
 ```shell
 git config --local gitleaks.path /path/to/gitleaks

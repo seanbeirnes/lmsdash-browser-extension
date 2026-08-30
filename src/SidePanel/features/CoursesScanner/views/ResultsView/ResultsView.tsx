@@ -67,6 +67,7 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
   const [downloaded, setDownloaded] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const timerRef = useRef<number>(0);
+  const previewOccurrences = new Map<string, number>();
 
   const taskData = data as ResultTaskData | undefined;
 
@@ -229,8 +230,12 @@ function ResultsView({ taskId, scanAgainCallback }: ResultsViewProps) {
                 {curDetails !== null && curDetails.previews.length > 0 && (
                   <div className="w-full h-72 p-4 flex flex-col overflow-y-scroll bg-gray-200 rounded-b shadow-inner">
                     {curDetails.previews.map((preview) => {
+                      const previewValue = JSON.stringify(preview);
+                      const occurrence = previewOccurrences.get(previewValue) ?? 0;
+                      previewOccurrences.set(previewValue, occurrence + 1);
+
                       return (
-                        <div className="w-full break-all" key={`preview-${preview.join("-")}`}>
+                        <div className="w-full break-all" key={`preview-${previewValue}-${occurrence}`}>
                           <p className="text-sm font-mono">
                             {preview[0] ? preview[0] : ""}
                             <span className="py-1 rounded-sm bg-blue-200 font-bold">{preview[1]}</span>
