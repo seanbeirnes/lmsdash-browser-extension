@@ -9,14 +9,11 @@ interface SelectSearchTermsProps {
 }
 
 function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsProps) {
-  const termIds = useRef<string[]>([]);
-
-  while (termIds.current.length < searchTerms.length) {
-    termIds.current.push(crypto.randomUUID());
-  }
-  if (termIds.current.length > searchTerms.length) {
-    termIds.current.length = searchTerms.length;
-  }
+  // Stable per-row keys for the controlled inputs. Keying by term value would
+  // remount the input on every keystroke; keying by index breaks on removal.
+  // Ids are kept in sync with `searchTerms` in the add/remove handlers only,
+  // never during render, so renders stay side-effect free.
+  const termIds = useRef<string[]>(searchTerms.map(() => crypto.randomUUID()));
 
   function canAddTerm(): boolean {
     if (searchTerms[0].length < 2) return false;
@@ -39,13 +36,13 @@ function SelectSearchTerms({ searchTerms, setSearchTerms }: SelectSearchTermsPro
   }
 
   function removeSearchTerm(index: number): void {
-    termIds.current.splice(index, 1);
+    termIds.current = termIds.current.filter((_id, itemIndex) => itemIndex !== index);
     setSearchTerms(searchTerms.filter((_term, itemIndex) => itemIndex !== index));
   }
 
   function addSearchTerm(): void {
     if (!canAddTerm()) return;
-    termIds.current.push(crypto.randomUUID());
+    termIds.current = [...termIds.current, crypto.randomUUID()];
     setSearchTerms([...searchTerms, ""]);
   }
 
